@@ -1,0 +1,25 @@
+Selektor {
+    Attribut: Wert;
+    Attribut2: Wert2;
+}
+
+body {
+    background-color: #009f8b;
+}
+
+h1 {
+    background-color: darkblue;
+    font-size: 30pt;
+    color: #356508;
+    font-family: Arial Black, sans-serif;
+    text-decoration: underline;
+    text-align: center;
+}
+
+h2 {
+    font-size: 100%;
+}
+
+p {
+    font-family: Helvetica, sans-serif;
+}

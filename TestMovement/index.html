@@ -9,6 +9,139 @@
     <script src="main.js"></script>
 </head>
 <body>
-    <h1>ich bin eine Überschrift</h1>
+    <h1>X: <span id="accelx"></span>, Y: <span id="accely"></span></h1>
+    <main>
+        <input type="number" id="Eingabe" value="0" size="3">
+        <button type="button" id="ab">Start</button>
+    </main>
+    <noscript>
+        Sie haben JavaScript deaktiviert.
+    </noscript>
+    
+    
+    
+    <script>
+
+        var ab  = document.getElementById('ab');
+        ab.addEventListener ('click', writeAccel(), true);
+
+        //Spielfeld
+//        var canvas;
+
+        //Zeitintervall für Bildschirmwiederholung
+//        var refresh = 10;
+        //ID von setIntervall;
+//		var refreshID;	
+        
+        //Aktuell ausgelesene Beschleunigung aus dem Beschleunigungssensor
+        var accelx = 0.0;
+        var accely = 0.0;
+        writeAccel();
+
+        function writeAccel() {
+            alert("TEST");
+            document.getElementById("accelx").innerHTML = accelx;
+            document.getElementById("accely").innerHTML = accely;
+        }
+
+        //Beschleunigung im letzten Intervall
+        // aktuelle Beschleunigung * letzte < 0 bedeutet Richtungsänderung
+//        var lastAccx = 0;
+//        var lastAccy = 0;
+
+        //Spiel läuft?
+//        var running = true;
+
+ //       function init(){
+            //Aktuell ausgelesene Beschleunigung aus dem Beschleunigungssensor
+//			accelx = 0.0;
+//			accely = 0.0;
+
+			//Beschleunigung im letzten Intervall
+			// aktuelle Beschleunigung * letzte < 0 bedeutet Richtungsänderung
+//			lastAccx = 0;
+//			lastAccy = 0;
+
+//            running = true;
+//			refresh = 10;
+//        }
+
+        //Startet Bildschirmwiederholung für Spiel
+//        function refreshScreen() {
+//            initCanvas();
+//            refreshID = setInterval(draw, refresh);
+//            canvas.webkitRequestFullScreen();
+//        }
+
+        //Setzt die Attribute für das Spielfeld
+/**		function initCanvas(){
+			canvas = document.createElement('canvas');		
+			canvas.id = "myCanvas";
+			canvas.width = "800";
+			canvas.height = "400";
+			canvas.style = "border:3px solid #61210B;";		
+			document.body.appendChild(canvas);
+			ctx = canvas.getContext("2d");
+		}
+
+        //Aktualisiert die Stoppuhr
+        function setStopWatch() {
+            //if (stopWatchRunning == false) {
+            //return;
+            //}
+            var currentdate = new Date();
+            var duration = new Date(currentdate - startTime);
+            var minutes = duration.getMinutes();
+            if (minutes < 10) minutes = "0" + minutes;
+            var seconds = duration.getSeconds();
+            if (seconds < 10) seconds = "0" + seconds;
+            return minutes + ":" + seconds;
+        }
+
+        //Zeichnet den Wert der Stoppuhr
+		function drawStopWatch(watchText){
+            ctx.font = "28px Calibri";
+            ctx.fillStyle = "#8B2323";
+            ctx.fillText(watchText, 17, 22);
+        }
+*/        
+        //Ermittelt die Beschleunigung entsprechend der Bildschirmorientierung
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener("devicemotion", function (event) {
+                switch (window.orientation) {
+                    case 0:
+                        accelx = event.accelerationIncludingGravity.x * (-1);
+                        accely = event.accelerationIncludingGravity.y * (-1);
+                        writeAccel();
+                        break;
+
+                    case -90:
+                        accelx = event.accelerationIncludingGravity.y * (-1);
+                        accely = event.accelerationIncludingGravity.x;
+                        writeAccel();
+                        break;
+
+                    case 90:
+                        accelx = event.accelerationIncludingGravity.y;
+                        accely = event.accelerationIncludingGravity.x * (-1);
+                        writeAccel();
+                        break;
+
+                    case 180:
+                        accelx = event.accelerationIncludingGravity.x;
+                        accely = event.accelerationIncludingGravity.y;
+                        writeAccel();
+                        break;
+                }
+            }, true);
+        } else {
+            alert("Sorry, ihr Gerät unterstützt keine Bildschirmorientierung!");
+        }
+
+    </script>
+    
+    
+    
+    <script src="tablecreator.js"></script>
 </body>
 </html>

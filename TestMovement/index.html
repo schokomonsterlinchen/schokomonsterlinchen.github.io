@@ -40,7 +40,9 @@
 
         function writeAccel() {
             accelx = Math.round(accelx);
+            accelx = accelx * 9;
             accely = Math.round(accely);
+            accely = accely * 9;
             document.getElementById("accelx").innerHTML = accelx;
             document.getElementById("accely").innerHTML = accely;
             document.getElementById("x").innerHTML = x;

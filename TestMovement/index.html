@@ -9,7 +9,7 @@
     <script src="main.js"></script>
 </head>
 <body>
-    <h1>Xi: <span id="accelx"></span>, Y: <span id="accely"></span></h1>
+    <h1>Xi: <span id="accelx"></span>°, Y: <span id="accely"></span>°</h1>
     <h1>X: <span id="x"></span>m/s2, Y: <span id="y"></span>m/s2, Z: <span id="z"></span>m/s2</h1>
     <main>
         <input type="number" id="Eingabe" value="0" size="3">
@@ -43,24 +43,15 @@
             accely = Math.round(accely);
             document.getElementById("accelx").innerHTML = accelx;
             document.getElementById("accely").innerHTML = accely;
+            x = Math.round(x);
+            y = Math.round(y);
+            z = Math.round(z);
             document.getElementById("x").innerHTML = x;
             document.getElementById("y").innerHTML = y;
             document.getElementById("z").innerHTML = z;
         }
 
 
-/*        $(document).ready(function() {
-            window.ondevicemotion = function(coords) {
-                x = coords.acceleration.x;
-                y = coords.acceleration.y;
-                z = coords.acceleration.z;
-
-                $('#x-achse').html('X-Achse:' + x);
-                $('#y-achse').html('Y-Achse:' + y);
-                $('#z-achse').html('Z-Achse:' + z);
-            }
-        });
-*/
         if (window.DeviceMotionEvent) {
             window.addEventListener('devicemotion', function(event) {
                 x = event.acceleration.x;

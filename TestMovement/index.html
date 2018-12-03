@@ -10,9 +10,9 @@
 </head>
 <body>
     <h1>X: <span id="accelx"></span>, Y: <span id="accely"></span></h1>
-    <h1>X: <span id="x"></span></h1>
+    <!--<h1>X: <span id="x"></span></h1>
     <h1>X: <span id="y"></span></h1>
-    <h1>X: <span id="z"></span></h1>
+    <h1>X: <span id="z"></span></h1>-->
     <main>
         <input type="number" id="Eingabe" value="0" size="3">
         <button type="button" id="ab">Start</button>
@@ -31,10 +31,10 @@
         //Aktuell ausgelesene Beschleunigung aus dem Beschleunigungssensor
         var accelx = 0.0;
         var accely = 0.0;
-        var x = 0.0;
+/*        var x = 0.0;
         var y = 0.0;
         var z = 0.0;
-        writeAccel();
+*/        writeAccel();
 
 
 
@@ -45,13 +45,13 @@
             accely = accely * 9;
             document.getElementById("accelx").innerHTML = accelx;
             document.getElementById("accely").innerHTML = accely;
-            document.getElementById("x").innerHTML = x;
+ /*           document.getElementById("x").innerHTML = x;
             document.getElementById("y").innerHTML = y;
             document.getElementById("z").innerHTML = z;
-        }
+*/        }
 
 
-        $(document).ready(function() {
+/*        $(document).ready(function() {
             window.ondevicemotion = function(coords) {
                 x = coords.acceleration.x;
                 y = coords.acceleration.y;
@@ -62,7 +62,7 @@
                 $('#z-achse').html('Z-Achse:' + z);
             }
         });
-
+*/
         //Ermittelt die Beschleunigung entsprechend der Bildschirmorientierung
         if (window.DeviceOrientationEvent) {
             window.addEventListener("devicemotion", function (event) {

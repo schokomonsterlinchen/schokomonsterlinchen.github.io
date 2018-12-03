@@ -9,7 +9,7 @@
     <script src="main.js"></script>
 </head>
 <body>
-    <h1>X: <span id="accelx"></span>, Y: <span id="accely"></span></h1>
+    <h1>Xi: <span id="accelx"></span>, Y: <span id="accely"></span></h1>
     <h1>X: <span id="x"></span>, Y: <span id="y"></span>, Z: <span id="z"></span></h1>
     <main>
         <input type="number" id="Eingabe" value="0" size="3">
@@ -49,7 +49,7 @@
         }
 
 
-/*        $(document).ready(function() {
+        $(document).ready(function() {
             window.ondevicemotion = function(coords) {
                 x = coords.acceleration.x;
                 y = coords.acceleration.y;
@@ -60,7 +60,7 @@
                 $('#z-achse').html('Z-Achse:' + z);
             }
         });
-*/
+
         //Ermittelt die Beschleunigung entsprechend der Bildschirmorientierung
         if (window.DeviceOrientationEvent) {
             window.addEventListener("devicemotion", function (event) {

@@ -10,9 +10,9 @@
 </head>
 <body>
     <h1>X: <span id="accelx"></span>, Y: <span id="accely"></span></h1>
-    <h1>X: </h1><!--<span id="x"></span></h1>-->
-    <h1>X: </h1><!--<span id="y"></span></h1>
-    <h1>X: <span id="z"></span></h1>-->
+    <h1>X: </h1><!--<span id="ixi"></span></h1>-->
+    <h1>Y: </h1><!--<span id="ypsilonoi"></span></h1>
+    <h1>X: <span id="zetti"></span></h1>-->
     <main>
         <input type="number" id="Eingabe" value="0" size="3">
         <button type="button" id="ab">Start</button>
@@ -31,9 +31,9 @@
         //Aktuell ausgelesene Beschleunigung aus dem Beschleunigungssensor
         var accelx = 0.0;
         var accely = 0.0;
-        var x = 0.0;
-        var y = 0.0;
-        var z = 0.0;
+        var xixi = 0.0;
+        var ypsilonoi = 0.0;
+        var zetti = 0.0;
         writeAccel();
 
 
@@ -45,9 +45,9 @@
             accely = Math.round(accely);
             document.getElementById("accelx").innerHTML = accelx;
             document.getElementById("accely").innerHTML = accely;
-            document.getElementById("x").innerHTML = x;
-            document.getElementById("y").innerHTML = y;
-            document.getElementById("z").innerHTML = z;
+            document.getElementById("ixi").innerHTML = ixi;
+            document.getElementById("ypsilonoi").innerHTML = ypsilonoi;
+            document.getElementById("zetti").innerHTML = zetti;
         }
 
 

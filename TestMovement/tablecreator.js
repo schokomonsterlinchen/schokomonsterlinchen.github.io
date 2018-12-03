@@ -1,4 +1,77 @@
-function Quadrat() {
+var ab  = document.getElementById('ab');
+        ab.addEventListener ('click', writeAccel(), true);
+        
+        //Aktuell ausgelesene Beschleunigung aus dem Beschleunigungssensor
+        var accelx = 0.0;
+        var accely = 0.0;
+        var x = 0.0;
+        var y = 0.0;
+        var z = 0.0;
+        writeAccel();
+
+
+
+        function writeAccel() {
+            accelx = accelx * 9;
+            accelx = Math.round(accelx);
+            accely = accely * 9;
+            accely = Math.round(accely);
+            document.getElementById("accelx").innerHTML = accelx;
+            document.getElementById("accely").innerHTML = accely;
+            x = Math.round(x);
+            y = Math.round(y);
+            z = Math.round(z);
+            document.getElementById("x").innerHTML = x;
+            document.getElementById("y").innerHTML = y;
+            document.getElementById("z").innerHTML = z;
+        }
+
+
+        if (window.DeviceMotionEvent) {
+            window.addEventListener('devicemotion', function(event) {
+                x = event.acceleration.x;
+                y = event.acceleration.y;
+                z = event.acceleration.z;
+            });
+        }
+
+        //Ermittelt die Beschleunigung entsprechend der Bildschirmorientierung
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener("devicemotion", function (event) {
+                switch (window.orientation) {
+                    case 0:
+                        accelx = event.accelerationIncludingGravity.x * (-1);
+                        accely = event.accelerationIncludingGravity.y * (-1);
+                        writeAccel();
+                        break;
+
+                    case -90:
+                        accelx = event.accelerationIncludingGravity.y * (-1);
+                        accely = event.accelerationIncludingGravity.x;
+                        writeAccel();
+                        break;
+
+                    case 90:
+                        accelx = event.accelerationIncludingGravity.y;
+                        accely = event.accelerationIncludingGravity.x * (-1);
+                        writeAccel();
+                        break;
+
+                    case 180:
+                        accelx = event.accelerationIncludingGravity.x;
+                        accely = event.accelerationIncludingGravity.y;
+                        writeAccel();
+                        break;
+                }
+            }, true);
+        } else {
+            alert("Sorry, ihr Gerät unterstützt keine Bildschirmorientierung!");
+        }
+
+
+
+
+/*function Quadrat() {
     var Eingabe  = document.getElementById('Eingabe');
     var Ergebnis = Eingabe.value * Eingabe.value;
     alert("Das Quadrat von " + Eingabe.value + " = " + Ergebnis);
@@ -28,4 +101,4 @@ function write_to_file(...array)
 }
 
 var los  = document.getElementById('los');
-los.addEventListener ('click', create_array, true);
+los.addEventListener ('click', create_array, true);*/

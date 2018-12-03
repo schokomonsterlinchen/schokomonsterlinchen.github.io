@@ -1,102 +1,23 @@
 <!DOCTYPE <!DOCTYPE.<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Test Movement</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
-    <script src="main.js"></script>
-</head>
-<body>
-    <h1>Xi: <span id="accelx"></span>°, Y: <span id="accely"></span>°</h1>
-    <h1>X: <span id="x"></span>m/s2, Y: <span id="y"></span>m/s2, Z: <span id="z"></span>m/s2</h1>
-    <main>
-        <input type="number" id="Eingabe" value="0" size="3">
-        <button type="button" id="ab">Start</button>
-    </main>
-    <noscript>
-        Sie haben JavaScript deaktiviert.
-    </noscript>
-    
-    
-    
-    <script>
-
-        var ab  = document.getElementById('ab');
-        ab.addEventListener ('click', writeAccel(), true);
-        
-        //Aktuell ausgelesene Beschleunigung aus dem Beschleunigungssensor
-        var accelx = 0.0;
-        var accely = 0.0;
-        var x = 0.0;
-        var y = 0.0;
-        var z = 0.0;
-        writeAccel();
-
-
-
-        function writeAccel() {
-            accelx = accelx * 9;
-            accelx = Math.round(accelx);
-            accely = accely * 9;
-            accely = Math.round(accely);
-            document.getElementById("accelx").innerHTML = accelx;
-            document.getElementById("accely").innerHTML = accely;
-            x = Math.round(x);
-            y = Math.round(y);
-            z = Math.round(z);
-            document.getElementById("x").innerHTML = x;
-            document.getElementById("y").innerHTML = y;
-            document.getElementById("z").innerHTML = z;
-        }
-
-
-        if (window.DeviceMotionEvent) {
-            window.addEventListener('devicemotion', function(event) {
-                x = event.acceleration.x;
-                y = event.acceleration.y;
-                z = event.acceleration.z;
-            });
-        }
-
-        //Ermittelt die Beschleunigung entsprechend der Bildschirmorientierung
-        if (window.DeviceOrientationEvent) {
-            window.addEventListener("devicemotion", function (event) {
-                switch (window.orientation) {
-                    case 0:
-                        accelx = event.accelerationIncludingGravity.x * (-1);
-                        accely = event.accelerationIncludingGravity.y * (-1);
-                        writeAccel();
-                        break;
-
-                    case -90:
-                        accelx = event.accelerationIncludingGravity.y * (-1);
-                        accely = event.accelerationIncludingGravity.x;
-                        writeAccel();
-                        break;
-
-                    case 90:
-                        accelx = event.accelerationIncludingGravity.y;
-                        accely = event.accelerationIncludingGravity.x * (-1);
-                        writeAccel();
-                        break;
-
-                    case 180:
-                        accelx = event.accelerationIncludingGravity.x;
-                        accely = event.accelerationIncludingGravity.y;
-                        writeAccel();
-                        break;
-                }
-            }, true);
-        } else {
-            alert("Sorry, ihr Gerät unterstützt keine Bildschirmorientierung!");
-        }
-
-    </script>
-    
-    
-    
-    <script src="tablecreator.js"></script>
-</body>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Test Movement</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+        <script src="main.js"></script>
+    </head>
+    <body>
+        <h1>Xi: <span id="accelx"></span>°, Y: <span id="accely"></span>°</h1>
+        <h1>X: <span id="x"></span>m/s2, Y: <span id="y"></span>m/s2, Z: <span id="z"></span>m/s2</h1>
+        <main>
+            <input type="number" id="Eingabe" value="0" size="3">
+            <button type="button" id="ab">Start</button>
+        </main>
+        <noscript>
+            Sie haben JavaScript deaktiviert.
+        </noscript>
+        <script src="tablecreator.js"></script>
+    </body>
 </html>

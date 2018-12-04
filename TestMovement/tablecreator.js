@@ -1,8 +1,13 @@
+//Initialisieren der Buttons
+//Startbutton
 var start = document.getElementById('start');
 start.addEventListener('click', start_filling_array, true);
-
+//Stoppbutton
 var stop = document.getElementById('stop');
 stop.addEventListener('click', stop_filling_array, true);
+//Downloadbutton
+var download = document.getElementById('download');
+download.addEventListener('click', download_array, true);
 
 //Aktuell ausgelesene Beschleunigung aus den Sensoren
 //Rotationssensor
@@ -30,10 +35,10 @@ writeAccel();
 
 //schreibt die aktuell ausgelesenen Werte auf den Bildschirm
 function writeAccel() {
-    var accel_rotate_deg_x = accel_rotate_x * 9;
-    var accel_rotate_round_x = Math.round(accel_rotate_deg_x);
-    var accel_rotate_deg_y = accel_rotate_y * 9;
-    var accel_rotate_round_y = Math.round(accel_rotate_deg_y);
+    let accel_rotate_deg_x = accel_rotate_x * 9;
+    let accel_rotate_round_x = Math.round(accel_rotate_deg_x);
+    let accel_rotate_deg_y = accel_rotate_y * 9;
+    let accel_rotate_round_y = Math.round(accel_rotate_deg_y);
     document.getElementById("accel_rotate_x").innerHTML = accel_rotate_round_x;
     document.getElementById("accel_rotate_y").innerHTML = accel_rotate_round_y;
     accel_speed_round_x = Math.round(accel_speed_x);
@@ -114,6 +119,27 @@ function create_array() {
 }
 
 
-function write_to_string() {
+function download_array() {
+    var filename = "testFile";
+    let csvContent = convert_csv();
+    var text = csvContent;
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+}
 
+function convert_csv() {
+    let csvContent = "";//"data:text/csv;charset=utf-8,";
+    array.forEach(function(rowArray) {
+        let row = rowArray.join(",");
+        csvContent += row + "\r\n";
+    });
+    return csvContent;
 }

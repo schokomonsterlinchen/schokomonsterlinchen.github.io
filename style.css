@@ -23,3 +23,8 @@ h2 {
 p {
     font-family: Helvetica, sans-serif;
 }
+
+form * {
+    display: block;
+    margin: 10px;
+}

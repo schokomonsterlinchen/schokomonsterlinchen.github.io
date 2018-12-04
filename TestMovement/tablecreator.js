@@ -18,6 +18,8 @@ var accel_speed_x = 0.0;
 var accel_speed_y = 0.0;
 var accel_speed_z = 0.0;
 
+var tracking = "Tracking is stopped";
+
 //Array, welches mit Werten befüllt wird
 var array = [];
 array.push(["X-Axis(rotation)", "Y-Axis(rotation)", "X-Axis(speed)", "Y-Axis(speed)", "Z-Axis(speed)"]);
@@ -47,18 +49,23 @@ function writeAccel() {
     document.getElementById("accel_speed_x").innerHTML = accel_speed_round_x;
     document.getElementById("accel_speed_y").innerHTML = accel_speed_round_y;
     document.getElementById("accel_speed_z").innerHTML = accel_speed_round_z;
+
+    document.getElementById("tracking").innerHTML = tracking;
 }
 
 //Startet das Befüllen des Arrays
 function start_filling_array() {
     fill_array = 1;
+    tracking = "Tracking is running";
     create_array();
+    writeAccel();
 }
 
 //Stoppt das Befüllen des Arrays
 function stop_filling_array() {
     fill_array = 0;
-    write_to_string();
+    tracking = "Tracking is stopped";
+    writeAccel();
 }
 
 //Ermittelt die Beschleunigung entsprechend der Bildschirmbeschleunigung

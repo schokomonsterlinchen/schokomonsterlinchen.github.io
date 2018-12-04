@@ -22,7 +22,7 @@ var accel_speed_z = 0.0;
 var array = [];
 array.push(["X-Axis(rotation)", "Y-Axis(rotation)", "X-Axis(speed)", "Y-Axis(speed)", "Z-Axis(speed)"]);
 //Sekunden, wie oft die Tabelle befüllt wird
-var sec = 5;
+var sec = 0.01;
 //Zähler der die Array-Zeilen zählt
 var count = 0;
 //Boolean mit 1 = Array wird befüllt, 0 = Array wird nicht befüllt
@@ -107,11 +107,11 @@ if (window.DeviceOrientationEvent) {
 //Erweitert alle <siehe oben> Sekunden das Array
 function create_array() {
     if (fill_array == 1) {
-        alert("Count = " + count + "  " + array[0][0] + ": " + array[count][0] + "  "
+        /*alert("Count = " + count + "  " + array[0][0] + ": " + array[count][0] + "  "
             + array[0][1] + ": " + array[count][1] + "  "
             + array[0][2] + ": " + array[count][2] + "  "
             + array[0][3] + ": " + array[count][3] + "  "
-            + array[0][4] + ": " + array[count][4]);
+            + array[0][4] + ": " + array[count][4]);*/
         count++;
         array.push([accel_rotate_x, accel_rotate_y, accel_speed_x, accel_speed_y, accel_speed_z]);
         setTimeout(create_array, sec * 1000);
@@ -136,7 +136,7 @@ function download_array() {
 }
 
 function convert_csv() {
-    let csvContent = "";//"data:text/csv;charset=utf-8,";
+    let csvContent = "";
     array.forEach(function(rowArray) {
         let row = rowArray.join(",");
         csvContent += row + "\r\n";

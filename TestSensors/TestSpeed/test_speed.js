@@ -1,5 +1,7 @@
 // Array with the two positions
-var positions = new Array(["lat1", "lon1", "date1"], ["lat2", "lon2", "date2"]);
+var positions = [];
+positions.push(["lat1", "lon1", "date1"]);
+positions.push(["lat2", "lon2", "date2"]);
 var speed_per_500m = new Array("min", "sec");
 
 //Funktionsaufrufe
@@ -25,7 +27,6 @@ function get_location() {
 }
 
 function handle_position(position) {
-	alert("bist du hier?");
 	position[0][0] = position[1][0];
 	position[0][1] = position[1][1];
 	position[1][0] = position.coords.latitude;

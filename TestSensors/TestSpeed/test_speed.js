@@ -27,10 +27,9 @@ function get_location() {
 }
 
 function handle_position(position) {
-	position[0][0] = position[1][0];
-	position[0][1] = position[1][1];
-	position[1][0] = position.coords.latitude;
-	position[1][1] = position.coords.longitude;
+	positions[0] = positions[1];
+	positions[1][0] = position.coords.latitude;
+	positions[1][1] = position.coords.longitude;
 }
 
 function time_per_500m(speed_in_metres_per_seconds) {

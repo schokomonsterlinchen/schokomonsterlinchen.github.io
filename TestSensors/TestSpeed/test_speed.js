@@ -4,13 +4,17 @@ positions.push(["lat1", "lon1", "date1"]);
 positions.push(["lat2", "lon2", "date2"]);
 var splitdate = new Array("year", "month", "day", "hour", "min", "sec", "milsec");
 var speed_per_500m = new Array("mins", "secs");
+var longitude = 0;
+var latitude = 0;
+
+var timezone = 1;
 
 //Funktionsaufrufe
-writePosition();
-get_location();
+outputValues();
+getLocation();
 
 //schreibt die aktuell ausgelesenen Werte auf den Bildschirm
-function writePosition() {
+function outputValues() {
 	document.getElementById("lat1").innerHTML = positions[0][0];
 	document.getElementById("lon1").innerHTML = positions[0][1];
 	document.getElementById("lat2").innerHTML = positions[1][0];
@@ -27,26 +31,40 @@ function writePosition() {
 }
 
 
-function get_location() {
+function getLocation() {
 	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(handle_position);
+		navigator.geolocation.watchPosition(handle_position);
 	}
-	writePosition();
-	setTimeout(get_location, 3 * 1000);
+	handleSpeedValues();
 }
 
 function handle_position(position) {
-	write_date();
-	positions[0] = positions[1];
-	positions[1][0] = position.coords.latitude;
-	positions[1][1] = position.coords.longitude;
+	latitude = position.coords.latitude;
+	longitude = position.coords.longitude;
 }
 
-function write_date() {
+function handleSpeedValues() {
+	writePosition();
+	writeDate();
+	writeTimePer500m();
+	outputValues();
+	setTimeout(handleSpeedValues, 3 * 1000);
+}
+
+function writePosition() {
+	positions[0][0] = positions[1][0];
+	positions[0][1] = positions[1][1];
+	positions[1][0] = latitude;
+	positions[1][1] = longitude;
+}
+
+function writeDate() {
 	if (!Date.now) {
 		Date.now = function () { return new Date().getTime(); }
 	}
 	let date = Date.now();
+	positions[0][2] = positions[1][2];
+	positions[1][2] = date;
 	// Milliseconds
 	splitdate[6] = date % 1000;
 	date = date - splitdate[6];
@@ -63,62 +81,100 @@ function write_date() {
 	splitdate[3] = date % 24;
 	date = date - splitdate[3];
 	date = date / 24;
+	splitdate[3] = splitdate[3] + timezone;
 	// Day
-	splitdate[2] = date % 365;
-	date = date - splitdate[2];
-	date = date / 365;
+	date += 731; //Anzahl der Tage seit 1968
+	splitdate[2] = date % 1461; //Anzahl der Tage seit Beginn des letzten Schaltjahres
+	date = date - splitdate[2]; //Anzahl der Tage von 1968 bis Beginn des letzten Schaltjahres
+	date = (date / 365.25) + 1; //Anzahl Jahre seit 1968 bis einschließlich letzen Schaltjahr
+	let leafyear = 0;
+	if (splitdate[2] < 367) {
+		leafyear = 1;
+	} else {
+		let days = splitdate[2] - 366; //Anzahl Tage seit Ende letzen Schaltjahres
+		splitdate[2] = (days % 365) + 1; //Tag Nummer in diesem Jahr
+		date += ((days - splitdate[2] + 1) / 365) + 1; //Anzahl der Jahre seit 1968
+	}
 	// Month
-	if(splitdate[2] < 32) {
-		splitdate[1] = 1;
-	} else if(splitdate[2] < 60) {
-		splitdate[2] = splitdate[2] - 32;
-		splitdate[1] = 2;
-	} else if(splitdate[2] < 91) {
-		splitdate[2] = splitdate[2] - 60;
-		splitdate[1] = 3;
-	} else if(splitdate[2] < 121) {
-		splitdate[2] = splitdate[2] - 91;
-		splitdate[1] = 4;
-	} else if(splitdate[2] < 152) {
-		splitdate[2] = splitdate[2] - 121;
-		splitdate[1] = 5;
-	} else if(splitdate[2] < 182) {
-		splitdate[2] = splitdate[2] - 152;
-		splitdate[1] = 6;
-	} else if(splitdate[2] < 213) {
-		splitdate[2] = splitdate[2] - 182;
-		splitdate[1] = 7;
-	} else if(splitdate[2] < 244) {
-		splitdate[2] = splitdate[2] - 213;
-		splitdate[1] = 8;
-	} else if(splitdate[2] < 274) {
-		splitdate[2] = splitdate[2] - 244;
-		splitdate[1] = 9;
-	} else if(splitdate[2] < 305) {
-		splitdate[2] = splitdate[2] - 274;
-		splitdate[1] = 10;
-	} else if(splitdate[2] < 335) {
-		splitdate[2] = splitdate[2] - 305;
-		splitdate[1] = 11;
-	} else if(splitdate[2] < 366) {
-		splitdate[2] = splitdate[2] - 335;
-		splitdate[1] = 12;
+	if (splitdate[2] < 32) {
+		splitdate[1] = "Januar";
+	} else if (splitdate[2] < 60 + leafyear) {
+		splitdate[2] = splitdate[2] - 31;
+		splitdate[1] = "Februar";
+	} else if (splitdate[2] < 91 + leafyear) {
+		splitdate[2] = splitdate[2] - 59 + leafyear;
+		splitdate[1] = "März";
+	} else if (splitdate[2] < 121 + leafyear) {
+		splitdate[2] = splitdate[2] - 90 + leafyear;
+		splitdate[1] = "April";
+	} else if (splitdate[2] < 152 + leafyear) {
+		splitdate[2] = splitdate[2] - 120 + leafyear;
+		splitdate[1] = "Mai";
+	} else if (splitdate[2] < 182 + leafyear) {
+		splitdate[2] = splitdate[2] - 151 + leafyear;
+		splitdate[1] = "Juni";
+	} else if (splitdate[2] < 213 + leafyear) {
+		splitdate[2] = splitdate[2] - 181 + leafyear;
+		splitdate[1] = "Juli";
+	} else if (splitdate[2] < 244 + leafyear) {
+		splitdate[2] = splitdate[2] - 212 + leafyear;
+		splitdate[1] = "August";
+	} else if (splitdate[2] < 274 + leafyear) {
+		splitdate[2] = splitdate[2] - 243 + leafyear;
+		splitdate[1] = "September";
+	} else if (splitdate[2] < 305 + leafyear) {
+		splitdate[2] = splitdate[2] - 273 + leafyear;
+		splitdate[1] = "Oktober";
+	} else if (splitdate[2] < 335 + leafyear) {
+		splitdate[2] = splitdate[2] - 304 + leafyear;
+		splitdate[1] = "November";
+	} else if (splitdate[2] < 366 + leafyear) {
+		splitdate[2] = splitdate[2] - 334 + leafyear;
+		splitdate[1] = "Dezember";
 	}
 	// Year
-	splitdate[0] = date;
+	splitdate[0] = date + 1967; //Anzahl der Jahre seit 1968 + die Jahre davor
 }
 
-function time_per_500m(speed_in_metres_per_seconds) {
-	// Seconds need for 500m
-	return 500 / speed_in_metres_per_seconds;
+function writeTimePer500m() {
+	let speed = speedInMeterPerSeconds();
+	if (speed == 0) {
+		speed_per_500m[1] = 0;
+		speed_per_500m[0] = 0;
+		return 0;
+	} else {
+		let seconds_per_500m = 500 / speed;
+		speed_per_500m[1] = seconds_per_500m % 60;
+		speed_per_500m[0] = (seconds_per_500m - speed_per_500m[1]) / 60;
+
+		// Seconds need for 500m
+		return seconds_per_500m;
+	}
 }
 
-function speed_on_distance_and_time(metres, seconds) {
-	// Speed in Metres per Second
-	return metres / seconds;
+function speedInMeterPerSeconds() {
+	let meter = distanceOnGeoidInMetres();
+//	alert("meter: " + meter + "  date1: " + positions[0][2] + "  date2: " + positions[1][2] + "  lat1: " + positions[0][0] + "  lon1: " + positions[0][1] + "  lat2: " + positions[1][0] + "  lon2: " + positions[1][1]);
+	if (isNaN(positions[0][2] || positions[1][2])) {
+		return 0;
+	} else {
+		let seconds = positions[1][2] - positions[0][2];
+		seconds = Math.floor(seconds / 1000);
+
+		// Speed in Metres per Second
+		return meter / seconds;
+	}
 }
 
-function distance_on_geoid(lat1, lon1, lat2, lon2) {
+function distanceOnGeoidInMetres() {
+	let lat1 = positions[0][0];
+	let lon1 = positions[0][1];
+	let lat2 = positions[1][0];
+	let lon2 = positions[1][1];
+
+	if (isNaN(lat1) || isNaN(lon1) || isNaN(lat2) || isNaN(lon2)) {
+		return 0;
+	}
 
 	// Convert degrees to radians
 	lat1 = lat1 * Math.PI / 180.0;

@@ -1,18 +1,14 @@
 // Array with the two positions
 var positions = [];
-positions.push(["lat1", "lon1", "date1"]);
-positions.push(["lat2", "lon2", "date2"]);
-/*positions.push(["lat3", "lon3", "date3"]);
-positions.push(["lat4", "lon4", "date4"]);*/
 var splitdate = new Array("year", "month", "day", "hour", "min", "sec", "milsec");
 var speed_per_500m = new Array("mins", "secs");
 //var speed_per_500m_10 = new Array("minss", "secss");
-var longitude = 0;
-var latitude = 0;
 
 var timezone = 1;
+var strokesAreAverage = 5;
 
 //Funktionsaufrufe
+fillpositions();
 outputValues();
 getLocation();
 
@@ -31,68 +27,44 @@ function outputValues() {
 	document.getElementById("milsec").innerHTML = splitdate[6];
 	document.getElementById("mins").innerHTML = speed_per_500m[0];
 	document.getElementById("secs").innerHTML = speed_per_500m[1];
+}
 
-/*	document.getElementById("minss").innerHTML = speed_per_500m_10[0];
-	document.getElementById("secss").innerHTML = speed_per_500m_10[1];
-*/}
-
+function fillpositions() {
+	for (let x = 1; x <= strokesAreAverage; x++) {
+		positions.push(["lat" + x, "lon" + x, "date" + x]);
+	}
+}
 
 function getLocation() {
 	if (navigator.geolocation) {
-		navigator.geolocation.watchPosition(handle_position, (error) => console.log(error), {enableHighAccuracy: true, timeout: 20000, maximumAge: 0, distanceFilter: 0});
+		navigator.geolocation.watchPosition(handleSpeedValues, (error) => console.log(error), { enableHighAccuracy: true, timeout: 20000, maximumAge: 0, distanceFilter: 0 });
 	}
-//	handleSpeedValues();
 }
 
-function handle_position(position) {
-	if (!Date.now) {
-		Date.now = function () { return new Date().getTime(); }
-	}
-	console.log(position.coords.latitude);
-	console.log(Date.now());
-	let date = Date.now();
-	positions[0][2] = positions[1][2];
-	positions[1][2] = date;
-	latitude = position.coords.latitude;
-	longitude = position.coords.longitude;
-	writePosition();
-	//writeDate();
-	writeTimePer500m();
-	outputValues();
-}
-
-/*function handleSpeedValues() {
-	writePosition();
-	writeDate();
-	writeTimePer500m();
-	writeTimePer500m10();
-	outputValues();
-	setTimeout(handleSpeedValues, 3 * 1000);
-}*/
-
-function writePosition() {
-/*	positions[2][0] = positions[3][0];
-	positions[2][1] = positions[3][1];
-	positions[3][0] = positions[0][0];
-	positions[3][1] = positions[0][1];
-*/	
-	positions[0][0] = positions[1][0];
-	positions[0][1] = positions[1][1];
-	positions[1][0] = latitude;
-	positions[1][1] = longitude;
-}
-
-/*function writeDate() {
+function handleSpeedValues(position) {
 	if (!Date.now) {
 		Date.now = function () { return new Date().getTime(); }
 	}
 	let date = Date.now();
-//	positions[2][2] = positions[3][2];
-//	positions[3][2] = positions[0][2];
-	
-//	positions[0][2] = positions[1][2];
-//	positions[1][2] = date;
-	
+	writePosition(position);
+	writeDate(date);
+	writeTimePer500m();
+	outputValues();
+}
+
+function writePosition(position) {
+	for (let x = strokesAreAverage - 1; x > 0; x--) {
+		positions[x][0] = positions[x - 1][0];
+		positions[x][1] = positions[x - 1][1];
+		positions[x][2] = positions[x - 1][2];
+	}
+	positions[0][0] = position.coords.latitude;
+	positions[0][1] = position.coords.longitude;
+}
+
+function writeDate(date) {
+	positions[0][2] = date;
+
 	// Milliseconds
 	splitdate[6] = date % 1000;
 	date = date - splitdate[6];
@@ -162,7 +134,7 @@ function writePosition() {
 	}
 	// Year
 	splitdate[0] = date + 1967; //Anzahl der Jahre seit 1968 + die Jahre davor
-}*/
+}
 
 function writeTimePer500m() {
 	let speed = speedInMeterPerSeconds();
@@ -175,7 +147,7 @@ function writeTimePer500m() {
 		speed_per_500m[1] = seconds_per_500m % 60;
 		speed_per_500m[0] = (seconds_per_500m - speed_per_500m[1]) / 60;
 		speed_per_500m[1] = Math.round(speed_per_500m[1]);
-		
+
 		// Seconds need for 500m
 		return seconds_per_500m;
 	}
@@ -183,11 +155,11 @@ function writeTimePer500m() {
 
 function speedInMeterPerSeconds() {
 	let meter = distanceOnGeoidInMetres();
-//	alert("meter: " + meter + "  date1: " + positions[0][2] + "  date2: " + positions[1][2] + "  lat1: " + positions[0][0] + "  lon1: " + positions[0][1] + "  lat2: " + positions[1][0] + "  lon2: " + positions[1][1]);
-	if (isNaN(positions[0][2] || positions[1][2])) {
+	//alert("meter: " + meter + "  date1: " + positions[0][2] + "  date2: " + positions[strokesAreAverage -1][2] + "  lat1: " + positions[0][0] + "  lon1: " + positions[0][1] + "  lat2: " + positions[1][0] + "  lon2: " + positions[1][1]);
+	if (isNaN(positions[0][2]) || isNaN(positions[strokesAreAverage -1][2])) {
 		return 0;
 	} else {
-		let seconds = positions[1][2] - positions[0][2];
+		let seconds = positions[0][2] - positions[strokesAreAverage - 1][2];
 		seconds = Math.floor(seconds / 1000);
 
 		// Speed in Metres per Second
@@ -196,10 +168,10 @@ function speedInMeterPerSeconds() {
 }
 
 function distanceOnGeoidInMetres() {
-	let lat1 = positions[0][0];
-	let lon1 = positions[0][1];
-	let lat2 = positions[1][0];
-	let lon2 = positions[1][1];
+	let lat1 = positions[strokesAreAverage - 1][0];
+	let lon1 = positions[strokesAreAverage - 1][1];
+	let lat2 = positions[0][0];
+	let lon2 = positions[0][1];
 
 	if (isNaN(lat1) || isNaN(lon1) || isNaN(lat2) || isNaN(lon2)) {
 		return 0;
@@ -236,76 +208,3 @@ function distanceOnGeoidInMetres() {
 	// Distance in Metres
 	return radius * theta;
 }
-
-/*function writeTimePer500m10() {
-	let speed = speedInMeterPerSeconds10();
-	if (speed == 0) {
-		speed_per_500m_10[1] = 0;
-		speed_per_500m_10[0] = 0;
-		return 0;
-	} else {
-		let seconds_per_500m = 500 / speed;
-		speed_per_500m_10[1] = seconds_per_500m % 60;
-		speed_per_500m_10[0] = (seconds_per_500m - speed_per_500m_10[1]) / 60;
-		speed_per_500m_10[1] = Math.round(speed_per_500m_10[1]);
-
-		// Seconds need for 500m
-		return seconds_per_500m;
-	}
-}
-
-function speedInMeterPerSeconds10() {
-	let meter = distanceOnGeoidInMetres10();
-//	alert("meter: " + meter + "  date1: " + positions[0][2] + "  date2: " + positions[1][2] + "  lat1: " + positions[0][0] + "  lon1: " + positions[0][1] + "  lat2: " + positions[1][0] + "  lon2: " + positions[1][1]);
-	if (isNaN(positions[2][2] || positions[1][2])) {
-		return 0;
-	} else {
-		let seconds = positions[1][2] - positions[2][2];
-		seconds = Math.floor(seconds / 1000);
-
-		// Speed in Metres per Second
-		return meter / seconds;
-	}
-}
-
-function distanceOnGeoidInMetres10() {
-	let lat1 = positions[2][0];
-	let lon1 = positions[2][1];
-	let lat2 = positions[1][0];
-	let lon2 = positions[1][1];
-
-	if (isNaN(lat1) || isNaN(lon1) || isNaN(lat2) || isNaN(lon2)) {
-		return 0;
-	}
-
-	// Convert degrees to radians
-	lat1 = lat1 * Math.PI / 180.0;
-	lon1 = lon1 * Math.PI / 180.0;
-
-	lat2 = lat2 * Math.PI / 180.0;
-	lon2 = lon2 * Math.PI / 180.0;
-
-	// radius of earth in metres
-	radius = 6378100;
-
-	// P
-	var rho1 = radius * Math.cos(lat1);
-	var z1 = radius * Math.sin(lat1);
-	var x1 = rho1 * Math.cos(lon1);
-	var y1 = rho1 * Math.sin(lon1);
-
-	// Q
-	var rho2 = radius * Math.cos(lat2);
-	var z2 = radius * Math.sin(lat2);
-	var x2 = rho2 * Math.cos(lon2);
-	var y2 = rho2 * Math.sin(lon2);
-
-	// Dot product
-	var dot = (x1 * x2 + y1 * y2 + z1 * z2);
-	var cos_theta = dot / (radius * radius);
-
-	var theta = Math.acos(cos_theta);
-
-	// Distance in Metres
-	return radius * theta;
-}*/

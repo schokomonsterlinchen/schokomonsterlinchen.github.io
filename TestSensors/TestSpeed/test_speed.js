@@ -161,7 +161,8 @@ function writeTimePer500m() {
 		let seconds_per_500m = 500 / speed;
 		speed_per_500m[1] = seconds_per_500m % 60;
 		speed_per_500m[0] = (seconds_per_500m - speed_per_500m[1]) / 60;
-
+		speed_per_500m[1] = Math.round(speed_per_500m[1]);
+		
 		// Seconds need for 500m
 		return seconds_per_500m;
 	}
@@ -233,6 +234,7 @@ function writeTimePer500m10() {
 		let seconds_per_500m = 500 / speed;
 		speed_per_500m_10[1] = seconds_per_500m % 60;
 		speed_per_500m_10[0] = (seconds_per_500m - speed_per_500m_10[1]) / 60;
+		speed_per_500m_10[1] = Math.round(speed_per_500m_10[1]);
 
 		// Seconds need for 500m
 		return seconds_per_500m;

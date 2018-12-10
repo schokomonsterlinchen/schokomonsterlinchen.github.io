@@ -5,7 +5,7 @@ var speed_per_500m = new Array("mins", "secs");
 //var speed_per_500m_10 = new Array("minss", "secss");
 
 var timezone = 1;
-var strokesAreAverage = 5;
+var strokesAreAverage = 25;
 
 //Funktionsaufrufe
 fillpositions();

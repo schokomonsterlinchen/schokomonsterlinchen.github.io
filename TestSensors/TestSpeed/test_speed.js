@@ -2,11 +2,11 @@
 var positions = [];
 positions.push(["lat1", "lon1", "date1"]);
 positions.push(["lat2", "lon2", "date2"]);
-positions.push(["lat3", "lon3", "date3"]);
-positions.push(["lat4", "lon4", "date4"]);
+/*positions.push(["lat3", "lon3", "date3"]);
+positions.push(["lat4", "lon4", "date4"]);*/
 var splitdate = new Array("year", "month", "day", "hour", "min", "sec", "milsec");
 var speed_per_500m = new Array("mins", "secs");
-var speed_per_500m_10 = new Array("minss", "secss");
+//var speed_per_500m_10 = new Array("minss", "secss");
 var longitude = 0;
 var latitude = 0;
 
@@ -32,54 +32,67 @@ function outputValues() {
 	document.getElementById("mins").innerHTML = speed_per_500m[0];
 	document.getElementById("secs").innerHTML = speed_per_500m[1];
 
-	document.getElementById("minss").innerHTML = speed_per_500m_10[0];
+/*	document.getElementById("minss").innerHTML = speed_per_500m_10[0];
 	document.getElementById("secss").innerHTML = speed_per_500m_10[1];
-}
+*/}
 
 
 function getLocation() {
 	if (navigator.geolocation) {
-		navigator.geolocation.watchPosition(handle_position);
+		navigator.geolocation.watchPosition(handle_position, (error) => console.log(error), {enableHighAccuracy: true, timeout: 20000, maximumAge: 0, distanceFilter: 0});
 	}
-	handleSpeedValues();
+//	handleSpeedValues();
 }
 
 function handle_position(position) {
+	if (!Date.now) {
+		Date.now = function () { return new Date().getTime(); }
+	}
+	console.log(position.coords.latitude);
+	console.log(Date.now());
+	let date = Date.now();
+	positions[0][2] = positions[1][2];
+	positions[1][2] = date;
 	latitude = position.coords.latitude;
 	longitude = position.coords.longitude;
+	writePosition();
+	//writeDate();
+	writeTimePer500m();
+	outputValues();
 }
 
-function handleSpeedValues() {
+/*function handleSpeedValues() {
 	writePosition();
 	writeDate();
 	writeTimePer500m();
 	writeTimePer500m10();
 	outputValues();
 	setTimeout(handleSpeedValues, 3 * 1000);
-}
+}*/
 
 function writePosition() {
-	positions[2][0] = positions[3][0];
+/*	positions[2][0] = positions[3][0];
 	positions[2][1] = positions[3][1];
 	positions[3][0] = positions[0][0];
 	positions[3][1] = positions[0][1];
-	
+*/	
 	positions[0][0] = positions[1][0];
 	positions[0][1] = positions[1][1];
 	positions[1][0] = latitude;
 	positions[1][1] = longitude;
 }
 
-function writeDate() {
+/*function writeDate() {
 	if (!Date.now) {
 		Date.now = function () { return new Date().getTime(); }
 	}
 	let date = Date.now();
-	positions[2][2] = positions[3][2];
-	positions[3][2] = positions[0][2];
+//	positions[2][2] = positions[3][2];
+//	positions[3][2] = positions[0][2];
 	
-	positions[0][2] = positions[1][2];
-	positions[1][2] = date;
+//	positions[0][2] = positions[1][2];
+//	positions[1][2] = date;
+	
 	// Milliseconds
 	splitdate[6] = date % 1000;
 	date = date - splitdate[6];
@@ -149,7 +162,7 @@ function writeDate() {
 	}
 	// Year
 	splitdate[0] = date + 1967; //Anzahl der Jahre seit 1968 + die Jahre davor
-}
+}*/
 
 function writeTimePer500m() {
 	let speed = speedInMeterPerSeconds();
@@ -224,7 +237,7 @@ function distanceOnGeoidInMetres() {
 	return radius * theta;
 }
 
-function writeTimePer500m10() {
+/*function writeTimePer500m10() {
 	let speed = speedInMeterPerSeconds10();
 	if (speed == 0) {
 		speed_per_500m_10[1] = 0;
@@ -295,4 +308,4 @@ function distanceOnGeoidInMetres10() {
 
 	// Distance in Metres
 	return radius * theta;
-}
+}*/

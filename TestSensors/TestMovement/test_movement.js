@@ -18,11 +18,15 @@ var accel_speed_x = 0.0;
 var accel_speed_y = 0.0;
 var accel_speed_z = 0.0;
 
+//Aktuelle Geolocation
+var longitude = 0;
+var latitude = 0;
+
 var tracking = "Tracking is stopped";
 
 //Array, welches mit Werten befüllt wird
 var array = [];
-array.push(["Timestamp", "X-Axis(rotation)", "Y-Axis(rotation)", "X-Axis(speed)", "Y-Axis(speed)", "Z-Axis(speed)"]);
+array.push(["Timestamp", "X-Axis(rotation)", "Y-Axis(rotation)", "X-Axis(speed)", "Y-Axis(speed)", "Z-Axis(speed)", "Latitude", "Longitude"]);
 //Sekunden, wie oft die Tabelle befüllt wird
 var sec = 0.01;
 //Zähler der die Array-Zeilen zählt
@@ -124,12 +128,21 @@ function create_array() {
             Date.now = function () { return new Date().getTime(); }
         }
         let date = Date.now();
-        array.push([date, accel_rotate_x, accel_rotate_y, accel_speed_x, accel_speed_y, accel_speed_z]);
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(handleSpeedValues, (error) => console.log(error), { enableHighAccuracy: true, timeout: 20000, maximumAge: 0, distanceFilter: 0 });
+        }
+        array.push([date, accel_rotate_x, accel_rotate_y, accel_speed_x, accel_speed_y, accel_speed_z, latitude, longitude]);
         setTimeout(create_array, sec * 1000);
     }
 }
 
+//Ermittelt den Standort entsprechend der Geolocation
+function handleSpeedValues(position) {
+    latitude = position.coords.latitude;
+    longitude = position.coords.longitude;
+}
 
+//Downloaded das befüllte Array und stellt es zur Verfügung
 function download_array() {
     var filename = "testFile";
     let csvContent = convert_csv();
@@ -146,6 +159,7 @@ function download_array() {
     document.body.removeChild(element);
 }
 
+//Konvertiert das befüllte Array in CSV-Format
 function convert_csv() {
     let csvContent = "";
     array.forEach(function(rowArray) {

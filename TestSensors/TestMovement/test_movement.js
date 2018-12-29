@@ -77,10 +77,10 @@ function stop_filling_array() {
 
 //Ermittelt die Beschleunigung entsprechend der Bildschirmbeschleunigung
 if (window.DeviceMotionEvent) {
+    if (!Date.now) {
+        Date.now = function () { return new Date().getTime(); }
+    }
     window.addEventListener('devicemotion', function (event) {
-        if (!Date.now) {
-            Date.now = function () { return new Date().getTime(); }
-        }
         timestamp_speed = Date.now();
         accel_speed_x = event.acceleration.x;
         accel_speed_y = event.acceleration.y;
@@ -90,10 +90,9 @@ if (window.DeviceMotionEvent) {
 
 //Ermittelt die Beschleunigung entsprechend der Bildschirmorientierung
 if (window.DeviceOrientationEvent) {
-    window.addEventListener("devicemotion", function (event) {
-        if (!Date.now) {
-            Date.now = function () { return new Date().getTime(); }
-        }
+    if (!Date.now) {
+        Date.now = function () { return new Date().getTime(); }
+    } window.addEventListener("devicemotion", function (event) {
         timestamp_rotation = Date.now();
         switch (window.orientation) {
             case 0:

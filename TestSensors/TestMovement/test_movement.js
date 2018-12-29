@@ -22,7 +22,7 @@ var tracking = "Tracking is stopped";
 
 //Array, welches mit Werten befüllt wird
 var array = [];
-array.push(["X-Axis(rotation)", "Y-Axis(rotation)", "X-Axis(speed)", "Y-Axis(speed)", "Z-Axis(speed)"]);
+array.push(["Timestamp", "X-Axis(rotation)", "Y-Axis(rotation)", "X-Axis(speed)", "Y-Axis(speed)", "Z-Axis(speed)"]);
 //Sekunden, wie oft die Tabelle befüllt wird
 var sec = 0.01;
 //Zähler der die Array-Zeilen zählt
@@ -120,7 +120,11 @@ function create_array() {
             + array[0][3] + ": " + array[count][3] + "  "
             + array[0][4] + ": " + array[count][4]);*/
         count++;
-        array.push([accel_rotate_x, accel_rotate_y, accel_speed_x, accel_speed_y, accel_speed_z]);
+        if (!Date.now) {
+            Date.now = function () { return new Date().getTime(); }
+        }
+        let date = Date.now();
+        array.push([date, accel_rotate_x, accel_rotate_y, accel_speed_x, accel_speed_y, accel_speed_z]);
         setTimeout(create_array, sec * 1000);
     }
 }

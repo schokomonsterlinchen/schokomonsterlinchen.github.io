@@ -154,22 +154,27 @@ function writeTimePer500m() {
 }
 
 function speedInMeterPerSeconds() {
-	let meter = distanceOnGeoidInMetres();
-	//alert("meter: " + meter + "  date1: " + positions[0][2] + "  date2: " + positions[strokesAreAverage -1][2] + "  lat1: " + positions[0][0] + "  lon1: " + positions[0][1] + "  lat2: " + positions[1][0] + "  lon2: " + positions[1][1]);
-	if (isNaN(positions[0][2]) || isNaN(positions[strokesAreAverage -1][2])) {
-		return 0;
-	} else {
-		let seconds = positions[0][2] - positions[strokesAreAverage - 1][2];
-		seconds = Math.floor(seconds / 1000);
+	let total = 0;
+	for (let strokes = strokesAreAverage - 1; strokes > 0; strokes--) {
+		let meter = distanceOnGeoidInMetres(strokes);
+		//alert("meter: " + meter + "  date1: " + positions[0][2] + "  date2: " + positions[strokesAreAverage -1][2] + "  lat1: " + positions[0][0] + "  lon1: " + positions[0][1] + "  lat2: " + positions[1][0] + "  lon2: " + positions[1][1]);
+		if (isNaN(positions[0][2]) || isNaN(positions[strokes][2])) {
+			return 0;
+		} else {
+			let seconds = positions[0][2] - positions[strokes][2];
+			seconds = Math.floor(seconds / 1000);
+		}
 
 		// Speed in Metres per Second
-		return meter / seconds;
+		total += meter / seconds;
 	}
+	
+	return total / (strokesAreAverage - 1);
 }
 
-function distanceOnGeoidInMetres() {
-	let lat1 = positions[strokesAreAverage - 1][0];
-	let lon1 = positions[strokesAreAverage - 1][1];
+function distanceOnGeoidInMetres(strokes) {
+	let lat1 = positions[strokes][0];
+	let lon1 = positions[strokes][1];
 	let lat2 = positions[0][0];
 	let lon2 = positions[0][1];
 

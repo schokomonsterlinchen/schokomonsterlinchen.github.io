@@ -3,16 +3,30 @@ Selektor {
     Attribut2: Wert2;
 }
 
+html {
+    /*gesamte Seite*/
+    background-color: black;
+}
+
 body {
+    /*Hintergrundfarbe*/
     background-color: #009f8b;
+    /*niemals breiter als die Seite*/
+    max-width: 90%;
+    /*Außenabstand -> mittig*/
+    margin: 0 auto;
 }
 
 h1 {
     background-color: darkblue;
+    /*Schriftgröße*/
     font-size: 30pt;
+    /*Schriftfarbe*/
     color: #356508;
+    /*Schriftart*/
     font-family: Arial Black, sans-serif;
     text-decoration: underline;
+    /*Textausrichtung -> mittig*/
     text-align: center;
 }
 
@@ -22,9 +36,4 @@ h2 {
 
 p {
     font-family: Helvetica, sans-serif;
-}
-
-form * {
-    display: block;
-    margin: 10px;
 }

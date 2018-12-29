@@ -11,22 +11,25 @@ download.addEventListener('click', download_array, true);
 
 //Aktuell ausgelesene Beschleunigung aus den Sensoren
 //Rotationssensor
+var timestamp_rotation = 0.0;
 var accel_rotate_x = 0.0;
 var accel_rotate_y = 0.0;
 //Beschleunigungssensor
+var timestamp_speed = 0.0;
 var accel_speed_x = 0.0;
 var accel_speed_y = 0.0;
 var accel_speed_z = 0.0;
 
 //Aktuelle Geolocation
-var longitude = 0;
-var latitude = 0;
+var timestamp_geoid = 0.0;
+var longitude = 0.0;
+var latitude = 0.0;
 
 var tracking = "Tracking is stopped";
 
 //Array, welches mit Werten befüllt wird
 var array = [];
-array.push(["Timestamp", "X-Axis(rotation)", "Y-Axis(rotation)", "X-Axis(speed)", "Y-Axis(speed)", "Z-Axis(speed)", "Latitude", "Longitude"]);
+array.push(["Timestamp (rotation)", "X-Axis(rotation)", "Y-Axis(rotation)", "Timestamp (speed)", "X-Axis(speed)", "Y-Axis(speed)", "Z-Axis(speed)", "Timestamp (geoid)", "Latitude", "Longitude"]);
 //Sekunden, wie oft die Tabelle befüllt wird
 var sec = 0.01;
 //Zähler der die Array-Zeilen zählt
@@ -74,6 +77,10 @@ function stop_filling_array() {
 
 //Ermittelt die Beschleunigung entsprechend der Bildschirmbeschleunigung
 if (window.DeviceMotionEvent) {
+    if (!Date.now) {
+        Date.now = function () { return new Date().getTime(); }
+    }
+    timestamp_speed = Date.now();
     window.addEventListener('devicemotion', function (event) {
         accel_speed_x = event.acceleration.x;
         accel_speed_y = event.acceleration.y;
@@ -83,6 +90,10 @@ if (window.DeviceMotionEvent) {
 
 //Ermittelt die Beschleunigung entsprechend der Bildschirmorientierung
 if (window.DeviceOrientationEvent) {
+    if (!Date.now) {
+        Date.now = function () { return new Date().getTime(); }
+    }
+    timestamp_rotation = Date.now();
     window.addEventListener("devicemotion", function (event) {
         switch (window.orientation) {
             case 0:
@@ -124,29 +135,23 @@ function create_array() {
             + array[0][3] + ": " + array[count][3] + "  "
             + array[0][4] + ": " + array[count][4]);*/
         count++;
-        if (!Date.now) {
-            Date.now = function () { return new Date().getTime(); }
-        }
-        let date = Date.now();
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(handleGeolocationValues, (error) => console.log(error), { enableHighAccuracy: true, timeout: 20000, maximumAge: 0, distanceFilter: 0 });
-        }
-        array.push([date, accel_rotate_x, accel_rotate_y, accel_speed_x, accel_speed_y, accel_speed_z, latitude, longitude]);
+            navigator.geolocation.watchPosition(handleGeolocationValues);
+        }    
+        array.push([timestamp_rotation, accel_rotate_x, accel_rotate_y, timestamp_speed, accel_speed_x, accel_speed_y, accel_speed_z, timestamp_geoid, latitude, longitude]);
         setTimeout(create_array, sec * 1000);
     }
 }
 
 //Ermittelt den Standort entsprechend der Geolocation
 function handleGeolocationValues(position) {
+    if (!Date.now) {
+        Date.now = function () { return new Date().getTime(); }
+    }
+    timestamp_geoid = Date.now();
+    
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
-    if(latitude != 0) {
-        alert("Latitude: " + latitude);
-    }
-    longitude = position.coords.longitude;
-    if(longitude != 0) {
-        alert("Longitude: " + longitude);
-    } 
 }
 
 //Downloaded das befüllte Array und stellt es zur Verfügung

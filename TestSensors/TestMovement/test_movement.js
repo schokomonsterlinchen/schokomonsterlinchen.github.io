@@ -129,7 +129,7 @@ function create_array() {
         }
         let date = Date.now();
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(handleSpeedValues, (error) => console.log(error), { enableHighAccuracy: true, timeout: 20000, maximumAge: 0, distanceFilter: 0 });
+            navigator.geolocation.getCurrentPosition(handleGeolocationValues);
         }
         array.push([date, accel_rotate_x, accel_rotate_y, accel_speed_x, accel_speed_y, accel_speed_z, latitude, longitude]);
         setTimeout(create_array, sec * 1000);
@@ -137,7 +137,7 @@ function create_array() {
 }
 
 //Ermittelt den Standort entsprechend der Geolocation
-function handleSpeedValues(position) {
+function handleGeolocationValues(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
 }

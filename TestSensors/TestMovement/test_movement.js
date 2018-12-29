@@ -77,11 +77,11 @@ function stop_filling_array() {
 
 //Ermittelt die Beschleunigung entsprechend der Bildschirmbeschleunigung
 if (window.DeviceMotionEvent) {
-    if (!Date.now) {
-        Date.now = function () { return new Date().getTime(); }
-    }
-    timestamp_speed = Date.now();
     window.addEventListener('devicemotion', function (event) {
+        if (!Date.now) {
+            Date.now = function () { return new Date().getTime(); }
+        }
+        timestamp_speed = Date.now();
         accel_speed_x = event.acceleration.x;
         accel_speed_y = event.acceleration.y;
         accel_speed_z = event.acceleration.z;
@@ -90,11 +90,11 @@ if (window.DeviceMotionEvent) {
 
 //Ermittelt die Beschleunigung entsprechend der Bildschirmorientierung
 if (window.DeviceOrientationEvent) {
-    if (!Date.now) {
-        Date.now = function () { return new Date().getTime(); }
-    }
-    timestamp_rotation = Date.now();
     window.addEventListener("devicemotion", function (event) {
+        if (!Date.now) {
+            Date.now = function () { return new Date().getTime(); }
+        }
+        timestamp_rotation = Date.now();
         switch (window.orientation) {
             case 0:
                 accel_rotate_x = event.accelerationIncludingGravity.x * (-1);
@@ -137,7 +137,7 @@ function create_array() {
         count++;
         if (navigator.geolocation) {
             navigator.geolocation.watchPosition(handleGeolocationValues);
-        }    
+        }
         array.push([timestamp_rotation, accel_rotate_x, accel_rotate_y, timestamp_speed, accel_speed_x, accel_speed_y, accel_speed_z, timestamp_geoid, latitude, longitude]);
         setTimeout(create_array, sec * 1000);
     }
@@ -149,7 +149,7 @@ function handleGeolocationValues(position) {
         Date.now = function () { return new Date().getTime(); }
     }
     timestamp_geoid = Date.now();
-    
+
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
 }
@@ -162,19 +162,19 @@ function download_array() {
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(text));
     element.setAttribute('download', filename);
-  
+
     element.style.display = 'none';
     document.body.appendChild(element);
-  
+
     element.click();
-  
+
     document.body.removeChild(element);
 }
 
 //Konvertiert das befüllte Array in CSV-Format
 function convert_csv() {
     let csvContent = "";
-    array.forEach(function(rowArray) {
+    array.forEach(function (rowArray) {
         let row = rowArray.join(",");
         csvContent += row + "\r\n";
     });

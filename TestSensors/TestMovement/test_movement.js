@@ -129,7 +129,7 @@ function create_array() {
         }
         let date = Date.now();
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(handleGeolocationValues);
+            navigator.geolocation.getCurrentPosition(handleGeolocationValues, (error) => console.log(error), { enableHighAccuracy: true, timeout: 20000, maximumAge: 0, distanceFilter: 0 });
         }
         array.push([date, accel_rotate_x, accel_rotate_y, accel_speed_x, accel_speed_y, accel_speed_z, latitude, longitude]);
         setTimeout(create_array, sec * 1000);
@@ -140,6 +140,13 @@ function create_array() {
 function handleGeolocationValues(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
+    if(latitude != 0) {
+        alert("Latitude: " + latitude);
+    }
+    longitude = position.coords.longitude;
+    if(longitude != 0) {
+        alert("Longitude: " + longitude);
+    } 
 }
 
 //Downloaded das befüllte Array und stellt es zur Verfügung

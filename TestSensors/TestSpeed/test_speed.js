@@ -83,7 +83,8 @@ function writeDate(date) {
 	date = date - splitdate[4];
 	date = date / 60;
 	// Hours
-	splitdate[3] = (date + timezone + yeartime) % 24;
+	date += timezone + yeartime;
+	splitdate[3] = date % 24;
 	date = date - splitdate[3];
 	date = date / 24;
 	// Day

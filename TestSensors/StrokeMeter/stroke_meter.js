@@ -28,6 +28,7 @@ fill_exact_array();
 fill_averaged_array();
 fill_maximum_points();
 write_stroke();
+create_array();
 
 
 //schreibt die aktuell ausgelesenen Werte auf den Bildschirm
@@ -72,7 +73,6 @@ function fill_averaged_array() {
 
 //Erneuert alle <sec> Sekunden die Arrays
 function create_array() {
-    set_stroke();
     exact_array[exact_counter][0] = sum_accel_speed;
     exact_array[exact_counter][1] = timestamp_speed;
 
@@ -138,11 +138,10 @@ function set_maximum_point(counter) {
 
 //Errechnet die neue Schlagzahl
 function set_stroke() {
-    stroke++;
-    /*    let total_stroke = 0;
+    let total_stroke = 0;
     for (let x = 5; x > 0; x--) {
         total_stroke += (maximum_points[0] - maximum_points[x]);
     }
     let time_per_stroke = total_stroke / 5;
     stroke = Math.floor(60000 / time_per_stroke);
-*/}
+}

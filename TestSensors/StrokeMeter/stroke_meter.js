@@ -72,6 +72,7 @@ function fill_averaged_array() {
 
 //Erneuert alle <sec> Sekunden die Arrays
 function create_array() {
+    set_stroke();
     exact_array[exact_counter][0] = sum_accel_speed;
     exact_array[exact_counter][1] = timestamp_speed;
 

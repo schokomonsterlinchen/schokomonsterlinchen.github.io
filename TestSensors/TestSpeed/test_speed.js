@@ -4,8 +4,8 @@ var splitdate = new Array("year", "month", "day", "hour", "min", "sec", "milsec"
 var speed_per_500m = new Array("mins", "secs");
 //var speed_per_500m_10 = new Array("minss", "secss");
 
-var timezone = 1;
-var yeartime = 1;
+var timezone = 1; //Deutschland = 1 
+var yeartime = 1; //Winterzeit = 0, Sommerzeit = 1
 var strokesAreAverage = 25;
 
 //Funktionsaufrufe
@@ -83,10 +83,9 @@ function writeDate(date) {
 	date = date - splitdate[4];
 	date = date / 60;
 	// Hours
-	splitdate[3] = date % 24;
+	splitdate[3] = (date + timezone + yeartime) % 24;
 	date = date - splitdate[3];
 	date = date / 24;
-	splitdate[3] = splitdate[3] + timezone + yeartime;
 	// Day
 	date += 731; //Anzahl der Tage seit 1968
 	splitdate[2] = date % 1461; //Anzahl der Tage seit Beginn des letzten Schaltjahres

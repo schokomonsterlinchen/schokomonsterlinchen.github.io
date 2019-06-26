@@ -138,10 +138,19 @@ function set_maximum_point(counter) {
 
 //Errechnet die neue Schlagzahl
 function set_stroke() {
+    let counter = 5;
     let total_stroke = 0;
     for (let x = 5; x > 0; x--) {
-        total_stroke += (maximum_points[0] - maximum_points[x]);
+        if (isNaN(maximum_points[0]) || isNaN(maximum_points[x])) {
+            conter--;
+        } else {
+            total_stroke += (maximum_points[0] - maximum_points[x]);
+        }
     }
-    let time_per_stroke = total_stroke / 5;
-    stroke = Math.floor(60000 / time_per_stroke);
+    if (counter == 0 ) {
+        stroke = 0;
+    } else {
+        let time_per_stroke = total_stroke / 5;
+        stroke = Math.floor(60000 / time_per_stroke);
+    }
 }

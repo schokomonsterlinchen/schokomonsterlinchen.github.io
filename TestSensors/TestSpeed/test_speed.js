@@ -4,7 +4,11 @@ var splitdate = new Array("year", "month", "day", "hour", "min", "sec", "milsec"
 var speed_per_500m = new Array("mins", "secs");
 //var speed_per_500m_10 = new Array("minss", "secss");
 
+//Schlagzahl
+var speed = 20;
+
 var timezone = 1;
+var yeartime = 1;
 var strokesAreAverage = 25;
 
 //Funktionsaufrufe
@@ -14,6 +18,7 @@ getLocation();
 
 //schreibt die aktuell ausgelesenen Werte auf den Bildschirm
 function outputValues() {
+	document.getElementById("stroke").innerHTML = stroke;
 	document.getElementById("lat1").innerHTML = positions[0][0];
 	document.getElementById("lon1").innerHTML = positions[0][1];
 	document.getElementById("lat2").innerHTML = positions[1][0];
@@ -81,7 +86,7 @@ function writeDate(date) {
 	splitdate[3] = date % 24;
 	date = date - splitdate[3];
 	date = date / 24;
-	splitdate[3] = splitdate[3] + timezone;
+	splitdate[3] = splitdate[3] + timezone + yeartime;
 	// Day
 	date += 731; //Anzahl der Tage seit 1968
 	splitdate[2] = date % 1461; //Anzahl der Tage seit Beginn des letzten Schaltjahres

@@ -4,9 +4,6 @@ var splitdate = new Array("year", "month", "day", "hour", "min", "sec", "milsec"
 var speed_per_500m = new Array("mins", "secs");
 //var speed_per_500m_10 = new Array("minss", "secss");
 
-//Schlagzahl
-var speed = 20;
-
 var timezone = 1;
 var yeartime = 1;
 var strokesAreAverage = 25;
@@ -18,7 +15,6 @@ getLocation();
 
 //schreibt die aktuell ausgelesenen Werte auf den Bildschirm
 function outputValues() {
-	document.getElementById("stroke").innerHTML = stroke;
 	document.getElementById("lat1").innerHTML = positions[0][0];
 	document.getElementById("lon1").innerHTML = positions[0][1];
 	document.getElementById("lat2").innerHTML = positions[1][0];
@@ -34,30 +30,34 @@ function outputValues() {
 	document.getElementById("secs").innerHTML = speed_per_500m[1];
 }
 
+//füllt mein Array mit <strokesAreAverage> Strings
 function fillpositions() {
 	for (let x = 1; x <= strokesAreAverage; x++) {
 		positions.push(["lat" + x, "lon" + x, "date" + x]);
 	}
 }
 
+//ermittelt die Position und ruft handleSpeedValues auf
 function getLocation() {
 	if (navigator.geolocation) {
 		navigator.geolocation.watchPosition(handleSpeedValues, (error) => console.log(error), { enableHighAccuracy: true, timeout: 20000, maximumAge: 0, distanceFilter: 0 });
 	}
 }
 
+//erneuert das Positions-Array mit der neuen Position
 function handleSpeedValues(position) {
 	if (!Date.now) {
 		Date.now = function () { return new Date().getTime(); }
 	}
 	let date = Date.now();
-	writePosition(position);
+	writePosition(position, date);
 	writeDate(date);
 	writeTimePer500m();
 	outputValues();
 }
 
-function writePosition(position) {
+//verschiebt alle Einträge in positions um eins und schreibt in die 0te Zeile die neueste Position
+function writePosition(position, date) {
 	for (let x = strokesAreAverage - 1; x > 0; x--) {
 		positions[x][0] = positions[x - 1][0];
 		positions[x][1] = positions[x - 1][1];
@@ -65,11 +65,11 @@ function writePosition(position) {
 	}
 	positions[0][0] = position.coords.latitude;
 	positions[0][1] = position.coords.longitude;
+	positions[0][2] = date;
 }
 
+//ermittelt die aktuelle Zeit
 function writeDate(date) {
-	positions[0][2] = date;
-
 	// Milliseconds
 	splitdate[6] = date % 1000;
 	date = date - splitdate[6];
@@ -141,6 +141,7 @@ function writeDate(date) {
 	splitdate[0] = date + 1967; //Anzahl der Jahre seit 1968 + die Jahre davor
 }
 
+//rechnet speedInMeterPerSeconds um in Zeit pro 500m
 function writeTimePer500m() {
 	let speed = speedInMeterPerSeconds();
 	if (speed == 0) {
@@ -158,23 +159,32 @@ function writeTimePer500m() {
 	}
 }
 
+//berechnet die durchschnittliche Geschwindigkeit in Metern pro Sekunde
+//anhand der aktuellsten Position verglichen mit den letzen 24 ermittelten Positionen
 function speedInMeterPerSeconds() {
-	let total = 0;
+	let totalMiliSec = 0;
+	let totalMetres = 0;
+
+	//Schleife zur Geschwindigkeitsberechnung von jeweils der aktuellsten und den letzten 24 ermittelten Positionen
 	for (let strokes = strokesAreAverage - 1; strokes > 0; strokes--) {
-		let meter = distanceOnGeoidInMetres(strokes);
-		//alert("meter: " + meter + "  date1: " + positions[0][2] + "  date2: " + positions[strokesAreAverage -1][2] + "  lat1: " + positions[0][0] + "  lon1: " + positions[0][1] + "  lat2: " + positions[1][0] + "  lon2: " + positions[1][1]);
+		//berechnet den Abstand zwischen der aktuellsten
+		//und der <strokes>ten Position und zähle alle Meter zusammen
+		totalMetres += distanceOnGeoidInMetres(strokes);
+							//alert("meter: " + meter + "  date1: " + positions[0][2] + "  date2: " + positions[strokesAreAverage -1][2] + "  lat1: " + positions[0][0] + "  lon1: " + positions[0][1] + "  lat2: " + positions[1][0] + "  lon2: " + positions[1][1]);
+
+		//wenn eine der Daten keine Nummer sind, gib 0 zurück
 		if (isNaN(positions[0][2]) || isNaN(positions[strokes][2])) {
 			return 0;
-		} else {
-			let seconds = positions[0][2] - positions[strokes][2];
-			seconds = Math.floor(seconds / 1000);
-		}
 
-		// Speed in Metres per Second
-		total += meter / seconds;
+		//sonst berechne den zeitlichen Abstand zwischen der Ermittlung
+		//der aktuellsten und der <strokes>ten Positionen in Milliekunden
+		// und zähle alle Millisekunden zusammen
+		} else {
+			totalMiliSec += positions[0][2] - positions[strokes][2];
+		}
 	}
-	
-	return total / (strokesAreAverage - 1);
+
+	return Math.floor((totalMetres * 1000) / totalMiliSec);
 }
 
 function distanceOnGeoidInMetres(strokes) {

@@ -25,6 +25,10 @@ var timestamp_geoid = 0.0;
 var longitude = 0.0;
 var latitude = 0.0;
 
+
+//Schlagzahl
+var stroke = 20;
+
 var tracking = "Tracking is stopped";
 
 //Array, welches mit Werten befüllt wird
@@ -44,6 +48,7 @@ writeAccel();
 
 //schreibt die aktuell ausgelesenen Werte auf den Bildschirm
 function writeAccel() {
+	document.getElementById("stroke").innerHTML = stroke;
     let accel_rotate_deg_x = accel_rotate_x * 9;
     let accel_rotate_round_x = Math.round(accel_rotate_deg_x);
     let accel_rotate_deg_y = accel_rotate_y * 9;

@@ -30,7 +30,7 @@ function outputValues() {
 	document.getElementById("secs").innerHTML = speed_per_500m[1];
 }
 
-//füllt mein Array mit <strokesAreAverage> Strings
+//füllt Array mit <strokesAreAverage> Strings
 function fillpositions() {
 	for (let x = 1; x <= strokesAreAverage; x++) {
 		positions.push(["lat" + x, "lon" + x, "date" + x]);
@@ -143,13 +143,13 @@ function writeDate(date) {
 
 //rechnet speedInMeterPerSeconds um in Zeit pro 500m
 function writeTimePer500m() {
-	let speed = speedInMeterPerSeconds();
+	let speed = speedInMeterPerHour();
 	if (speed == 0) {
 		speed_per_500m[1] = 0;
 		speed_per_500m[0] = 0;
 		return 0;
 	} else {
-		let seconds_per_500m = 500 / speed;
+		let seconds_per_500m = (500 / speed) * 3600;
 		speed_per_500m[1] = seconds_per_500m % 60;
 		speed_per_500m[0] = (seconds_per_500m - speed_per_500m[1]) / 60;
 		speed_per_500m[1] = Math.round(speed_per_500m[1]);
@@ -159,9 +159,9 @@ function writeTimePer500m() {
 	}
 }
 
-//berechnet die durchschnittliche Geschwindigkeit in Metern pro Sekunde
+//berechnet die durchschnittliche Geschwindigkeit in Metern pro Stunde
 //anhand der aktuellsten Position verglichen mit den letzen 24 ermittelten Positionen
-function speedInMeterPerSeconds() {
+function speedInMeterPerHour() {
 	let totalMiliSec = 0;
 	let totalMetres = 0;
 
@@ -184,7 +184,7 @@ function speedInMeterPerSeconds() {
 		}
 	}
 
-	return Math.floor((totalMetres * 1000) / totalMiliSec);
+	return Math.floor((totalMetres * 1200000) / totalMiliSec);
 }
 
 function distanceOnGeoidInMetres(strokes) {

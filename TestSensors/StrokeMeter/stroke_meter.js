@@ -39,12 +39,12 @@ function write_stroke() {
 
 //Ermittelt die Beschleunigung entsprechend der Bildschirmbeschleunigung
 if (window.DeviceMotionEvent) {
-    if (!Date.now) {
-		Date.now = function () { return new Date().getTime(); }
-	}
     window.addEventListener('devicemotion', function (event) {
+        if (!Date.now) {
+            Date.now = function () { return new Date().getTime(); }
+        }
         timestamp_speed = Date.now();
-        stroke = "timestamp aktuell: " + timestamp;
+        stroke = "timestampii aktuell: " + timestamp;
         write_stroke();
         var accel_speed_x = event.acceleration.x;
         var accel_speed_y = event.acceleration.y;

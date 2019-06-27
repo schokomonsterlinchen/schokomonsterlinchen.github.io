@@ -90,13 +90,13 @@ function create_array() {
 
 
     //Counter hoch setzen. Läuft er aus dem Array raus, wird er zu 0
-    if (exact_counter < 999) {
+    if (exact_counter < 9) {
         exact_counter++;
     } else {
         exact_counter = 0;
     }
 
-    if(averaged_counter < 9) {
+    if(averaged_counter < 999) {
         averaged_counter++;
     } else {
         averaged_counter = 0;

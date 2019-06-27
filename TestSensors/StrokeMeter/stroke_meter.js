@@ -81,11 +81,11 @@ function create_array() {
     averaged_array[averaged_counter][0] = averaged_value();
     averaged_array[averaged_counter][1] = exact_array[exact_counter][1];
 
-    stroke = "timestamp: " + timestamp + "  -  summe: " + sum_accel_speed
+/*    stroke = "timestamp: " + timestamp + "  -  summe: " + sum_accel_speed
         + "  -  exact " + exact_counter + ": " + exact_array[exact_counter][0] + "  -  averaged " + averaged_counter + ": " + averaged_array[averaged_counter][0]
-        + "  -  exacttime: " + exact_array[exact_counter][1] + "  -  averagedtime: " + averaged_array[averaged_counter][0]
+        + "  -  exacttime: " + exact_array[exact_counter][1] + "  -  averagedtime: " + averaged_array[averaged_counter][1]
     write_stroke();
-
+*/
     find_maximum_point();
 
 
@@ -139,9 +139,9 @@ function find_maximum_point() {
     if (isNaN(averaged_array[counter_0][0])
         || isNaN(averaged_array[counter_1][0])
         || isNaN(averaged_array[counter_2][0])) {
-  /*      stroke = "isNan";
+        stroke = "isNan";
         write_stroke();
-    */  } else if (averaged_array[counter_1][0] > averaged_array[counter_0][0]
+    } else if (averaged_array[counter_1][0] > averaged_array[counter_0][0]
         && averaged_array[counter_1][0] > averaged_array[counter_2][0]
         && averaged_array[counter_0][0] > 2
         && averaged_array[counter_1][0] > 2
@@ -150,13 +150,13 @@ function find_maximum_point() {
         set_maximum_point(counter_1);
         stroke = "!isNaN2";
         set_stroke();
-        }/*        stroke = "!isNaN3";
+        stroke = "!isNaN3";
         write_stroke();
-      } else {
+    } else {
         stroke = "0: " + averaged_array[counter_0][0] + "; 1: " + averaged_array[counter_1][0] + "; 2: " + averaged_array[counter_2][0]
                 + "  -  0: " + exact_array[counter_0][0] + "; 1: " + exact_array[counter_1][0] + "; 2: " + exact_array[counter_2][0];
         write_stroke();
-    }*/
+    }
 }
 
 //Erneuert die Tabelle mit den Hochpunkten

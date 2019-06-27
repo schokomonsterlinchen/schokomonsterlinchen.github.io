@@ -44,7 +44,7 @@ if (window.DeviceMotionEvent) {
 	}
     window.addEventListener('devicemotion', function (event) {
         timestamp_speed = Date.now();
-        stroke = "timestamp: " + timestamp;
+        stroke = "timestamp aktuell: " + timestamp;
         write_stroke();
         var accel_speed_x = event.acceleration.x;
         var accel_speed_y = event.acceleration.y;

@@ -73,21 +73,15 @@ function fill_maximum_points() {
 
 //Erneuert alle <sec> Sekunden die Arrays
 function create_array() {
-    stroke = "create_array_1"; //remove
-    write_stroke(); //remove
     exact_array[exact_counter][0] = sum_accel_speed;
     exact_array[exact_counter][1] = timestamp_speed;
 
     averaged_array[averaged_counter][0] = averaged_value();
     averaged_array[averaged_counter][1] = exact_array[exact_counter][1];
 
-    stroke = "create_array_2"; //remove
-    write_stroke(); //remove
 
     find_maximum_point();
 
-    stroke = "create_array_3"; //remove
-    write_stroke(); //remove
 
     //Counter hoch setzen. Läuft er aus dem Array raus, wird er zu 0
     if (exact_counter < 999) {
@@ -102,8 +96,6 @@ function create_array() {
         averaged_counter = 0;
     }
 
-    stroke = "create_array_4"; //remove
-    write_stroke(); //remove
 
     //Methode alle <sec> Sekunden wiederholen
     setTimeout(create_array, sec * 1000);
@@ -125,20 +117,19 @@ function find_maximum_point() {
     let counter_0 = counter_2 - 2;
     if (counter_1 < 0) {
         counter_1 = 999;
-        stroke = "create_array_1"; //remove
-        write_stroke(); //remove    
     } else if (counter_0 < 0) {
-        counter_0 = 999;
-        stroke = "create_array_2"; //remove
-        write_stroke(); //remove    
+        counter_0 = 999;    
     }
-    if (averaged_array[counter_1][0] > averaged_array[counter_0][0]
+    if (isNaN(averaged_array[counter_0][0])
+        || isNaN(averaged_array[counter_1][0])
+        || isNaN(averaged_array[counter_2][0])) {
+        stroke = "isNaN";
+        write_stroke();
+    } else if (averaged_array[counter_1][0] > averaged_array[counter_0][0]
         && averaged_array[counter_1][0] > averaged_array[counter_2][0]
         && averaged_array[counter_0][0] > 2
         && averaged_array[counter_1][0] > 2
         && averaged_array[counter_2][0] > 2) {
-        stroke = "create_array_3"; //remove
-        write_stroke(); //remove    
         set_maximum_point(counter_1);
         set_stroke();
         write_stroke();

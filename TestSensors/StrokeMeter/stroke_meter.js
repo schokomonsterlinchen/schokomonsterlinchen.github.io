@@ -19,7 +19,8 @@ var averaged_counter = 0;
 //Array welches die letzen 5 Hochpunkte sammelt
 var maximum_points = [];
 
-
+//Timestamp
+var timestamp = 0;
 //Sekunden, wie oft die Tabelle befüllt wird
 var sec = 0.01;
 
@@ -39,10 +40,11 @@ function write_stroke() {
 //Ermittelt die Beschleunigung entsprechend der Bildschirmbeschleunigung
 if (window.DeviceMotionEvent) {
     if (!Date.now) {
-        Date.now = function () { return new Date().getTime(); }
-    }
+		Date.now = function () { return new Date().getTime(); }
+	}
+	timestamp = Date.now();
     window.addEventListener('devicemotion', function (event) {
-        timestamp_speed = Date.now();
+        timestamp_speed = timestamp;
         var accel_speed_x = event.acceleration.x;
         var accel_speed_y = event.acceleration.y;
         var accel_speed_z = event.acceleration.z;
@@ -61,7 +63,7 @@ function fill_exact_array() {
 function fill_averaged_array() {
 	for (let x = 1; x <= 1000; x++) {
 		averaged_array.push(["averaged" + x, "date" + x]);
-	}
+    }
 }
 
 //füllt maximum_points mit 6 Strings

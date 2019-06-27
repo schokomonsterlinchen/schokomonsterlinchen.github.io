@@ -53,21 +53,21 @@ if (window.DeviceMotionEvent) {
 //füllt exact_array mit 10 Strings
 function fill_exact_array() {
 	for (let x = 1; x <= 10; x++) {
-		positions.push(["exact" + x, "date" + x]);
+		exact_array.push(["exact" + x, "date" + x]);
 	}
 }
 
 //füllt averaged_array mit 1000 Strings
 function fill_averaged_array() {
 	for (let x = 1; x <= 1000; x++) {
-		positions.push(["averaged" + x, "date" + x]);
+		averaged_array.push(["averaged" + x, "date" + x]);
 	}
 }
 
 //füllt maximum_points mit 6 Strings
-function fill_averaged_array() {
+function fill_maximum_points() {
 	for (let x = 1; x <= 6; x++) {
-		positions.push(["max" + x]);
+		maximum_points.push(["max" + x]);
 	}
 }
 

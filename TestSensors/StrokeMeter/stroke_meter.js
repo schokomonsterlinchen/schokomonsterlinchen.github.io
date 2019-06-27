@@ -37,19 +37,20 @@ function write_stroke() {
 	document.getElementById("stroke").innerHTML = stroke;
 }
 
+
 //Ermittelt die Beschleunigung entsprechend der Bildschirmbeschleunigung
 if (window.DeviceMotionEvent) {
+    if (!Date.now) {
+        Date.now = function () { return new Date().getTime(); }
+    }
     window.addEventListener('devicemotion', function (event) {
-        if (!Date.now) {
-            Date.now = function () { return new Date().getTime(); }
-        }
         timestamp_speed = Date.now();
-        stroke = "timestampii aktuell: " + timestamp;
-        write_stroke();
         var accel_speed_x = event.acceleration.x;
         var accel_speed_y = event.acceleration.y;
         var accel_speed_z = event.acceleration.z;
-        sum_accel_speed = accel_speed_x + accel_speed_y + accel_speed_z;
+        stroke = "timestamp: " + timestamp + "  -  macceleration: " + sum_accel_speed
+            + "  -  x: " + accel_speed_x + "  -  y: " + accel_speed_y + "  -  z: " + accel_speed_z;
+        write_stroke();
     });
 }
 

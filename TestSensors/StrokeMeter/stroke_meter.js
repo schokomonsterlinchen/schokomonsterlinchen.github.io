@@ -149,7 +149,7 @@ function find_maximum_point() {
         stroke = "!isNaN3";
         write_stroke();
     } else {
-        stroke = "0: " + averaged_array[counter_0][0] + "; 1: " + averaged_array[counter_1][0] + "; 1: " + averaged_array[counter_2][0];
+        stroke = "0: " + averaged_array[counter_0][0] + "; 1: " + averaged_array[counter_1][0] + "; 2: " + averaged_array[counter_2][0];
         write_stroke();
     }
 }

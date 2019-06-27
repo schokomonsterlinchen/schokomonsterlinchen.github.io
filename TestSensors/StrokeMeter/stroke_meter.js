@@ -82,7 +82,7 @@ function create_array() {
     averaged_array[averaged_counter][1] = exact_array[exact_counter][1];
 
     stroke = "timestamp: " + timestamp + "  -  summe: " + sum_accel_speed
-        + "  -  exact: " + exact_array[exact_counter][0] + "  -  averaged: " + averaged_array[averaged_counter][0]
+        + "  -  exact " + exact_counter + ": " + exact_array[exact_counter][0] + "  -  averaged " + averaged_counter + ": " + averaged_array[averaged_counter][0]
         + "  -  exacttime: " + exact_array[exact_counter][1] + "  -  averagedtime: " + averaged_array[averaged_counter][0]
     write_stroke();
 

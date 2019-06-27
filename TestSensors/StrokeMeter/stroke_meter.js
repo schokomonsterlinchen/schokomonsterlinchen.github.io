@@ -148,6 +148,9 @@ function find_maximum_point() {
         set_stroke();
         stroke = "!isNaN3";
         write_stroke();
+    } else {
+        stroke = "else";
+        write_stroke();
     }
 }
 

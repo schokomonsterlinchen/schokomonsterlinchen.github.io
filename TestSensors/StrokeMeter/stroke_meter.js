@@ -27,13 +27,13 @@ var sec = 0.01;
 fill_exact_array();
 fill_averaged_array();
 fill_maximum_points();
-write_stroke();
-create_array();
+outputValues();
+//create_array();
 
 
 //schreibt die aktuell ausgelesenen Werte auf den Bildschirm
-function write_stroke() {
-    document.getElementById("stroke").innerHTML = stroke;
+function outputValues() {
+	document.getElementById("stroke").innerHTML = stroke;
 }
 
 //Ermittelt die Beschleunigung entsprechend der Bildschirmbeschleunigung

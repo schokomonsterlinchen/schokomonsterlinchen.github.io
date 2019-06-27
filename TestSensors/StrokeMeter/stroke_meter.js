@@ -27,12 +27,12 @@ var sec = 0.01;
 fill_exact_array();
 fill_averaged_array();
 fill_maximum_points();
-outputValues();
-//create_array();
+write_stroke();
+create_array();
 
 
 //schreibt die aktuell ausgelesenen Werte auf den Bildschirm
-function outputValues() {
+function write_stroke() {
 	document.getElementById("stroke").innerHTML = stroke;
 }
 

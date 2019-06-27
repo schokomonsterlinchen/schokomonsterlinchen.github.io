@@ -1,5 +1,5 @@
 //Aktuelle ausgelesene Werte aus den Beschleunigungssensoren
-var timestamp_speed = 0.0;
+var timestamp = 0.0;
 var sum_accel_speed = 0.0;
 
 //Schlagzahl
@@ -44,11 +44,12 @@ if (window.DeviceMotionEvent) {
         Date.now = function () { return new Date().getTime(); }
     }
     window.addEventListener('devicemotion', function (event) {
-        timestamp_speed = Date.now();
-        var accel_speed_x = event.acceleration.x;
-        var accel_speed_y = event.acceleration.y;
-        var accel_speed_z = event.acceleration.z;
-        stroke = "timestamp: " + timestamp + "  -  macceleration: " + sum_accel_speed
+        timestamp = Date.now();
+        let accel_speed_x = event.acceleration.x;
+        let accel_speed_y = event.acceleration.y;
+        let accel_speed_z = event.acceleration.z;
+        sum_accel_speed = accel_speed_x + accel_speed_y + accel_speed_z;
+        stroke = "timestamp: " + timestamp + "  -  summe: " + sum_accel_speed
             + "  -  x: " + accel_speed_x + "  -  y: " + accel_speed_y + "  -  z: " + accel_speed_z;
         write_stroke();
     });

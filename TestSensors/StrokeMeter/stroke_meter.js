@@ -45,6 +45,8 @@ if (window.DeviceMotionEvent) {
 	timestamp = Date.now();
     window.addEventListener('devicemotion', function (event) {
         timestamp_speed = timestamp;
+        stroke = "timestamp: " + timestamp;
+        write_stroke();
         var accel_speed_x = event.acceleration.x;
         var accel_speed_y = event.acceleration.y;
         var accel_speed_z = event.acceleration.z;
@@ -135,9 +137,9 @@ function find_maximum_point() {
     if (isNaN(averaged_array[counter_0][0])
         || isNaN(averaged_array[counter_1][0])
         || isNaN(averaged_array[counter_2][0])) {
-        stroke = "isNan";
+  /*      stroke = "isNan";
         write_stroke();
-    } else if (averaged_array[counter_1][0] > averaged_array[counter_0][0]
+    */  } else if (averaged_array[counter_1][0] > averaged_array[counter_0][0]
         && averaged_array[counter_1][0] > averaged_array[counter_2][0]
         && averaged_array[counter_0][0] > 2
         && averaged_array[counter_1][0] > 2
@@ -146,13 +148,13 @@ function find_maximum_point() {
         set_maximum_point(counter_1);
         stroke = "!isNaN2";
         set_stroke();
-        stroke = "!isNaN3";
+        }/*        stroke = "!isNaN3";
         write_stroke();
-    } else {
+      } else {
         stroke = "0: " + averaged_array[counter_0][0] + "; 1: " + averaged_array[counter_1][0] + "; 2: " + averaged_array[counter_2][0]
                 + "  -  0: " + exact_array[counter_0][0] + "; 1: " + exact_array[counter_1][0] + "; 2: " + exact_array[counter_2][0];
         write_stroke();
-    }
+    }*/
 }
 
 //Erneuert die Tabelle mit den Hochpunkten

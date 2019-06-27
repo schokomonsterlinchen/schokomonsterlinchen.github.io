@@ -117,6 +117,7 @@ function find_maximum_point() {
     let counter_0 = counter_2 - 2;
     if (counter_1 < 0) {
         counter_1 = 999;
+        counter_0 = 998;
     } else if (counter_0 < 0) {
         counter_0 = 999;    
     }

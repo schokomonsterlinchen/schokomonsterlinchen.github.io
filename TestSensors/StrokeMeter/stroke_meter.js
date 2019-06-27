@@ -22,7 +22,7 @@ var maximum_points = [];
 //Timestamp
 var timestamp = 0;
 //Sekunden, wie oft die Tabelle befüllt wird
-var sec = 0.01;
+var sec = 1.0;//0.01;
 
 //Funktionsaufrufe
 fill_exact_array();
@@ -49,9 +49,6 @@ if (window.DeviceMotionEvent) {
         let accel_speed_y = event.acceleration.y;
         let accel_speed_z = event.acceleration.z;
         sum_accel_speed = accel_speed_x + accel_speed_y + accel_speed_z;
-        stroke = "timestamp: " + timestamp + "  -  summe: " + sum_accel_speed
-            + "  -  x: " + accel_speed_x + "  -  y: " + accel_speed_y + "  -  z: " + accel_speed_z;
-        write_stroke();
     });
 }
 
@@ -79,11 +76,15 @@ function fill_maximum_points() {
 //Erneuert alle <sec> Sekunden die Arrays
 function create_array() {
     exact_array[exact_counter][0] = sum_accel_speed;
-    exact_array[exact_counter][1] = timestamp_speed;
+    exact_array[exact_counter][1] = timestamp;
 
     averaged_array[averaged_counter][0] = averaged_value();
     averaged_array[averaged_counter][1] = exact_array[exact_counter][1];
 
+    stroke = "timestamp: " + timestamp + "  -  summe: " + sum_accel_speed
+        + "  -  exact: " + exact_array[exact_counter][0] + "  -  averaged: " + averaged_array[averaged_counter][0]
+        + "  -  exacttime: " + exact_array[exact_counter][1] + "  -  averagedtime: " + averaged_array[averaged_counter][0]
+    write_stroke();
 
     find_maximum_point();
 

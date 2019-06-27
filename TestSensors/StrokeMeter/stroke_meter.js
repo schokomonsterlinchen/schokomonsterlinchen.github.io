@@ -104,10 +104,19 @@ function create_array() {
 //mittelt die letzen 10 exakten Werte
 function averaged_value() {
     let total_accel_speed = 0;
+    let count = 10;
     for(let x = 0; x < 10; x++) {
-        total_accel_speed += exact_array[x][0];
+        if (isNaN(exact_array[x][0])) {
+            count--;
+        } else {
+            total_accel_speed += exact_array[x][0];
+        }
     }
-    return total_accel_speed / 10;
+    if (count == 0) {
+        return exact_array[exact_counter][0];
+    } else {
+        return total_accel_speed / counter;
+    }
 }
 
 //ermittelt den vermutlichen Hochpunkt der Kurve und schreibt ihn in maximum_points

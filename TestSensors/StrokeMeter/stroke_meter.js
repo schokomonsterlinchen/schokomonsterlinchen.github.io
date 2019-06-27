@@ -115,7 +115,8 @@ function averaged_value() {
     if (count == 0) {
         return exact_array[exact_counter][0];
     } else {
-        return total_accel_speed / counter;
+        let ret = total_accel_speed / counter;
+        return ret;
     }
 }
 

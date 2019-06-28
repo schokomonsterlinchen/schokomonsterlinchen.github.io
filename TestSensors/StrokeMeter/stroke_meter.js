@@ -146,22 +146,22 @@ function find_maximum_point() {
         && averaged_array[counter_0][0] > 2
         && averaged_array[counter_1][0] > 2
         && averaged_array[counter_2][0] > 2) {
-        stroke = "!isNaN1";
+/*        stroke = "!isNaN1";
         write_stroke();
-        set_maximum_point(counter_1);
-        stroke = "max 0: " + maximum_points[0] + "; max 1: " + maximum_points[1]
+  */      set_maximum_point(counter_1);
+    /*    stroke = "max 0: " + maximum_points[0] + "; max 1: " + maximum_points[1]
             + "; max 2: " + maximum_points[2] + "; max 3: " + maximum_points[3]
             + "; max 4: " + maximum_points[4] + "; max 5: " + maximum_points[5]
             + "; max 6: " + maximum_points[6] + "; time: " + averaged_array[counter_1][1];
         write_stroke();
-        set_stroke();
-        stroke = "!isNaN3";
+      */  set_stroke();
+           }   /* stroke = "!isNaN3";
         write_stroke();
     } else {
         stroke = "0: " + averaged_array[counter_0][0] + "; 1: " + averaged_array[counter_1][0] + "; 2: " + averaged_array[counter_2][0];
-    //            + "  -  0: " + exact_array[counter_0][0] + "; 1: " + exact_array[counter_1][0] + "; 2: " + exact_array[counter_2][0];
+                + "  -  0: " + exact_array[counter_0][0] + "; 1: " + exact_array[counter_1][0] + "; 2: " + exact_array[counter_2][0];
         write_stroke();
-    }
+    }*/
 }
 
 //Erneuert die Tabelle mit den Hochpunkten
@@ -178,7 +178,7 @@ function set_stroke() {
     let total_stroke = 0;
     for (let x = 5; x > 0; x--) {
         if (isNaN(maximum_points[0]) || isNaN(maximum_points[x])) {
-            conter--;
+            counter--;
         } else {
             total_stroke += (maximum_points[0] - maximum_points[x]);
         }

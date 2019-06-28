@@ -188,7 +188,7 @@ function find_maximum_point() {
 
 //Erneuert die Tabelle mit den Hochpunkten
 function set_maximum_point(counter) {
-    for (let x = 5; x > 0; x--) {
+    for (let x = 4; x > 0; x--) {
         maximum_points[x + 1] = maximum_points[x];
     }
     maximum_points[0] = averaged_array[counter][1];

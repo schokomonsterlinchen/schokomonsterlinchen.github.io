@@ -4,6 +4,7 @@ var sum_accel_speed = 0.0;
 
 //Schlagzahl
 var stroke = 20;
+var wait = 0;
 
 
 //Array welches die 10 exakten Werte speichert
@@ -160,6 +161,7 @@ function find_maximum_point() {
         if (averaged_array[counter_1][0] > averaged_array[counter_0][0]) {
             stroke = "C1 > C0: 0: " + averaged_array[counter_0][0] + "; 1: " + averaged_array[counter_1][0] + "; 2: " + averaged_array[counter_2][0];
             if (averaged_array[counter_1][0] > averaged_array[counter_2][0]) {
+                wait = 1;
                 stroke = "Hochpunkt: 0: " + averaged_array[counter_0][0] + "; 1: " + averaged_array[counter_1][0] + "; 2: " + averaged_array[counter_2][0];
             }
         } else if (averaged_array[counter_1][0] > averaged_array[counter_2][0]) {
@@ -167,11 +169,18 @@ function find_maximum_point() {
         } else if (averaged_array[counter_0][0] > 2
             && averaged_array[counter_1][0] > 2
             && averaged_array[counter_2][0] > 2) {
+                wait = 1;
                 stroke = "Alle > 2:  0: " + averaged_array[counter_0][0] + "; 1: " + averaged_array[counter_1][0] + "; 2: " + averaged_array[counter_2][0];
         } else {
             stroke = "Nix davon:  0: " + averaged_array[counter_0][0] + "; 1: " + averaged_array[counter_1][0] + "; 2: " + averaged_array[counter_2][0];
         }
         write_stroke();
+        if (wait == 0) {
+
+        } else {
+            wait = 0;
+            setTimeout(check, 1000);
+        }
     }
 }
 

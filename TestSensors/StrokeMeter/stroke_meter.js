@@ -149,7 +149,10 @@ function find_maximum_point() {
         stroke = "!isNaN1";
         write_stroke();
         set_maximum_point(counter_1);
-        stroke = "!isNaN2";
+        stroke = "max 0: " + maximum_points[0] + "; max 1: " + maximum_points[1]
+            + "; max 2: " + maximum_points[2] + "; max 3: " + maximum_points[3]
+            + "; max 4: " + maximum_points[4] + "; max 5: " + maximum_points[5]
+            + "; max 6: " + maximum_points[6] + "; time: " + averaged_array[counter_1][1];
         write_stroke();
         set_stroke();
         stroke = "!isNaN3";

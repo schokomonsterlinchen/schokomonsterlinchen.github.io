@@ -22,7 +22,7 @@ var maximum_points = [];
 //Timestamp
 var timestamp = 0;
 //Sekunden, wie oft die Tabelle befüllt wird
-var sec = 1.0;//0.01;
+var sec = 0.01;
 
 //Funktionsaufrufe
 fill_exact_array();

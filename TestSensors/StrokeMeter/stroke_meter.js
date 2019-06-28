@@ -157,7 +157,7 @@ function find_maximum_point() {
         write_stroke();
         set_stroke();
         write_stroke();
-    } else {
+    } /*else {
         if (averaged_array[counter_1][0] > averaged_array[counter_0][0]) {
             stroke = "C1 > C0: 0: " + averaged_array[counter_0][0] + "; 1: " + averaged_array[counter_1][0] + "; 2: " + averaged_array[counter_2][0];
             if (averaged_array[counter_1][0] > averaged_array[counter_2][0]) {
@@ -181,7 +181,7 @@ function find_maximum_point() {
             wait = 0;
             setTimeout(check, 1000);
         }
-    }
+    }*/
 }
 
 

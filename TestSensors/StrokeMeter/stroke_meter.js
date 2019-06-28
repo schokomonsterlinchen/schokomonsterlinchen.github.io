@@ -210,7 +210,9 @@ function set_stroke() {
         }
     }
     if (counter == 0 ) {
-        stroke = 0;
+        stroke = "max 0: " + maximum_points[0] + "; max 1: " + maximum_points[1]
+        + "; max 2: " + maximum_points[2] + "; max 3: " + maximum_points[3]
+        + "; max 4: " + maximum_points[4] + "; max 5: " + maximum_points[5];
     } else {
         let time_per_stroke = total_stroke / 5;
         stroke = "time per stroke: " + time_per_stroke;

@@ -162,6 +162,8 @@ function find_maximum_point() {
     }
 }
 
+
+
 //Erneuert die Tabelle mit den Hochpunkten
 function set_maximum_point(counter) {
     for (let x = 5; x > 0; x--) {
@@ -181,7 +183,7 @@ function set_stroke() {
             write_stroke();    
         } else {
             total_stroke += (maximum_points[0] - maximum_points[x]);
-            stroke = "total_stroke: " + total_stroke + "; counter: " + counter;
+            stroke = "total stroke: " + total_stroke + "; counter: " + counter;
             write_stroke();    
         }
     }

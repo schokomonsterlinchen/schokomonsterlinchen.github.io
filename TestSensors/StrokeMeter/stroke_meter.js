@@ -157,7 +157,20 @@ function find_maximum_point() {
         set_stroke();
         write_stroke();
     } else {
-        stroke = "0: " + averaged_array[counter_0][0] + "; 1: " + averaged_array[counter_1][0] + "; 2: " + averaged_array[counter_2][0];
+        if (averaged_array[counter_1][0] > averaged_array[counter_0][0]) {
+            stroke = "C1 > C0: 0: " + averaged_array[counter_0][0] + "; 1: " + averaged_array[counter_1][0] + "; 2: " + averaged_array[counter_2][0];
+            if (averaged_array[counter_1][0] > averaged_array[counter_2][0]) {
+                stroke = "Hochpunkt: 0: " + averaged_array[counter_0][0] + "; 1: " + averaged_array[counter_1][0] + "; 2: " + averaged_array[counter_2][0];
+            }
+        } else if (averaged_array[counter_1][0] > averaged_array[counter_2][0]) {
+            stroke = "C1 > C2: 0: " + averaged_array[counter_0][0] + "; 1: " + averaged_array[counter_1][0] + "; 2: " + averaged_array[counter_2][0];
+        } else if (averaged_array[counter_0][0] > 2
+            && averaged_array[counter_1][0] > 2
+            && averaged_array[counter_2][0] > 2) {
+                stroke = "Alle > 2:  0: " + averaged_array[counter_0][0] + "; 1: " + averaged_array[counter_1][0] + "; 2: " + averaged_array[counter_2][0];
+        } else {
+            stroke = "Nix davon:  0: " + averaged_array[counter_0][0] + "; 1: " + averaged_array[counter_1][0] + "; 2: " + averaged_array[counter_2][0];
+        }
         write_stroke();
     }
 }

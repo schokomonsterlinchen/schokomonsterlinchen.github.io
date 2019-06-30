@@ -188,7 +188,7 @@ function find_maximum_point() {
 
 //Erneuert die Tabelle mit den Hochpunkten
 function set_maximum_point(counter) {
-    for (let x = 4; x > 0; x--) {
+    for (let x = 4; x >= 0; x--) {
         maximum_points[x + 1] = maximum_points[x];
     }
     maximum_points[0] = averaged_array[counter][1];
@@ -210,7 +210,7 @@ function set_stroke() {
         }
     }
     if (counter == 0 ) {
-        stroke = "maxx 0: " + maximum_points[0] + "; max 1: " + maximum_points[1]
+        stroke = "max 0: " + maximum_points[0] + "; max 1: " + maximum_points[1]
         + "; max 2: " + maximum_points[2] + "; max 3: " + maximum_points[3]
         + "; max 4: " + maximum_points[4] + "; max 5: " + maximum_points[5];
     } else {

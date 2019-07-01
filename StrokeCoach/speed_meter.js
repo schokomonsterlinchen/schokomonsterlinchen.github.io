@@ -165,9 +165,8 @@ function speedInMeterPerHour() {
 		//berechnet den Abstand zwischen der aktuellsten
 		//und der <strokes>ten Position und zähle alle Meter zusammen
         let distance = distanceOnGeoidInMetres(strokes);
-        alert("distance" + distance);
         totalMetres += distance;//distanceOnGeoidInMetres(strokes);
-        alert("meter: " + meter + "  date1: " + positions[0][2]
+        alert("meter: " + distance + "  date1: " + positions[0][2]
             + "  date2: " + positions[strokesAreAverage -1][2]
             + "  lat1: " + positions[0][0] + "  lon1: " + positions[0][1]
             + "  lat2: " + positions[1][0] + "  lon2: " + positions[1][1]);

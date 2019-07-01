@@ -24,7 +24,7 @@ h1 {
     width: 35%;
     height: 65%;
     /*Boxrand*/
-    border: 2% #009f8b double;
+    border: 12px #009f8b double;
     /*Schriftart*/
     font-family: Arial white, sans-serif;
     text-decoration: underline;
@@ -41,7 +41,7 @@ h2 {
     /*Hintergrundfarbe*/
     background-color: black;
     /*Boxgröße*/
-    width: 63%;
+    width: 65%;
     height: 65%;
     /*Boxrand*/
     border: 12px #009f8b double;

@@ -82,11 +82,6 @@ function create_array() {
     averaged_array[averaged_counter][0] = averaged_value();
     averaged_array[averaged_counter][1] = exact_array[exact_counter][1];
 
-/*    stroke = "timestamp: " + timestamp + "  -  summe: " + sum_accel_speed
-        + "  -  exact " + exact_counter + ": " + exact_array[exact_counter][0] + "  -  averaged " + averaged_counter + ": " + averaged_array[averaged_counter][0]
-        + "  -  exacttime: " + exact_array[exact_counter][1] + "  -  averagedtime: " + averaged_array[averaged_counter][1]
-    write_stroke();
-*/
     find_maximum_point();
 
 
@@ -157,31 +152,7 @@ function find_maximum_point() {
         write_stroke();
         set_stroke();
         write_stroke();
-    } /*else {
-        if (averaged_array[counter_1][0] > averaged_array[counter_0][0]) {
-            stroke = "C1 > C0: 0: " + averaged_array[counter_0][0] + "; 1: " + averaged_array[counter_1][0] + "; 2: " + averaged_array[counter_2][0];
-            if (averaged_array[counter_1][0] > averaged_array[counter_2][0]) {
-                wait = 1;
-                stroke = "Hochpunkt: 0: " + averaged_array[counter_0][0] + "; 1: " + averaged_array[counter_1][0] + "; 2: " + averaged_array[counter_2][0];
-            }
-        } else if (averaged_array[counter_1][0] > averaged_array[counter_2][0]) {
-            stroke = "C1 > C2: 0: " + averaged_array[counter_0][0] + "; 1: " + averaged_array[counter_1][0] + "; 2: " + averaged_array[counter_2][0];
-        } else if (averaged_array[counter_0][0] > 2
-            && averaged_array[counter_1][0] > 2
-            && averaged_array[counter_2][0] > 2) {
-                wait = 1;
-                stroke = "Alle > 2:  0: " + averaged_array[counter_0][0] + "; 1: " + averaged_array[counter_1][0] + "; 2: " + averaged_array[counter_2][0];
-        } else {
-            stroke = "Nix davon:  0: " + averaged_array[counter_0][0] + "; 1: " + averaged_array[counter_1][0] + "; 2: " + averaged_array[counter_2][0];
-        }
-        write_stroke();
-        if (wait == 0) {
-
-        } else {
-            wait = 0;
-            setTimeout(check, 1000);
-        }
-    }*/
+    }
 }
 
 
@@ -201,22 +172,14 @@ function set_stroke() {
     for (let x = 5; x > 0; x--) {
         if (isNaN(maximum_points[0]) || isNaN(maximum_points[x])) {
             counter--;
-            stroke = "counter: " + counter;
-            write_stroke();    
         } else {
             total_stroke += (maximum_points[0] - maximum_points[x]);
-            stroke = "total stroke: " + total_stroke + "; counter: " + counter;
-            write_stroke();    
         }
     }
     if (counter == 0 ) {
-        stroke = "max 0: " + maximum_points[0] + "; max 1: " + maximum_points[1]
-        + "; max 2: " + maximum_points[2] + "; max 3: " + maximum_points[3]
-        + "; max 4: " + maximum_points[4] + "; max 5: " + maximum_points[5];
+        stroke = 0
     } else {
         let time_per_stroke = total_stroke / 5;
-        stroke = "time per stroke: " + time_per_stroke;
-        write_stroke();
         stroke = Math.floor(60000 / time_per_stroke);
     }
 }

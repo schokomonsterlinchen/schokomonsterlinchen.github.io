@@ -187,6 +187,7 @@ function speedInMeterPerHour() {
 	return Math.floor((totalMetres * 1200000) / totalMiliSec);
 }
 
+//berechnet die Distanz in Metern zwischen der aktuellen Position und der Position auf Platz <strokes>
 function distanceOnGeoidInMetres(strokes) {
 	let lat1 = positions[strokes][0];
 	let lon1 = positions[strokes][1];

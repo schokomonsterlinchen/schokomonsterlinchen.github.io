@@ -2,7 +2,6 @@
 var positions = [];
 var splitdate = new Array("year", "month", "day", "hour", "min", "sec", "milsec");
 var speed_per_500m = new Array("mins", "secs");
-//var speed_per_500m_10 = new Array("minss", "secss");
 
 var timezone = 1; //Deutschland = 1 
 var yeartime = 1; //Winterzeit = 0, Sommerzeit = 1
@@ -166,7 +165,7 @@ function speedInMeterPerHour() {
 		//berechnet den Abstand zwischen der aktuellsten
 		//und der <strokes>ten Position und zähle alle Meter zusammen
 		totalMetres += distanceOnGeoidInMetres(strokes);
-							//alert("meter: " + meter + "  date1: " + positions[0][2] + "  date2: " + positions[strokesAreAverage -1][2] + "  lat1: " + positions[0][0] + "  lon1: " + positions[0][1] + "  lat2: " + positions[1][0] + "  lon2: " + positions[1][1]);
+		alert("meter: " + meter + "  date1: " + positions[0][2] + "  date2: " + positions[strokesAreAverage -1][2] + "  lat1: " + positions[0][0] + "  lon1: " + positions[0][1] + "  lat2: " + positions[1][0] + "  lon2: " + positions[1][1]);
 
 		//wenn eine der Daten keine Nummer sind, gib 0 zurück
 		if (isNaN(positions[0][2]) || isNaN(positions[strokes][2])) {
@@ -222,6 +221,8 @@ function distanceOnGeoidInMetres(strokes) {
 
 	var theta = Math.acos(cos_theta);
 
+
+    alert(radius * theta);
 	// Distance in Metres
 	return radius * theta;
 }

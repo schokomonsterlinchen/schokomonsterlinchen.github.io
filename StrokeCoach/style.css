@@ -1,6 +1,6 @@
 html {
     /*gesamte Seite*/
-    background-color: #009f8b;
+    background-color: black;
 }
 
 body {
@@ -41,7 +41,7 @@ h2 {
     /*Hintergrundfarbe*/
     background-color: black;
     /*Boxgröße*/
-    width: 64%;
+    width: 63%;
     height: 65%;
     /*Boxrand*/
     border: 12px #009f8b double;

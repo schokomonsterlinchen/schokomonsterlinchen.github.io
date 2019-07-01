@@ -165,7 +165,7 @@ function speedInMeterPerHour() {
 		//berechnet den Abstand zwischen der aktuellsten
 		//und der <strokes>ten Position und zähle alle Meter zusammen
         let distance = distanceOnGeoidInMetres(strokes);
-   //     alert("distance" + distance);
+        alert("distance" + distance);
         totalMetres += distance;//distanceOnGeoidInMetres(strokes);
         alert("meter: " + meter + "  date1: " + positions[0][2]
             + "  date2: " + positions[strokesAreAverage -1][2]
@@ -193,8 +193,6 @@ function distanceOnGeoidInMetres(strokes) {
 	let lon1 = positions[strokes][1];
 	let lat2 = positions[0][0];
 	let lon2 = positions[0][1];
-
-    alert("lat1: " + lat1 + "; lon1: " + lon1 + "; lat2: " + lat2 + "; lon2: " + lon2);
 
 	if (isNaN(lat1) || isNaN(lon1) || isNaN(lat2) || isNaN(lon2)) {
 		return 0;
@@ -226,8 +224,7 @@ function distanceOnGeoidInMetres(strokes) {
 	var dot = (x1 * x2 + y1 * y2 + z1 * z2);
 	var cos_theta = dot / (radius * radius);
 
-	var theta = Math.acos(cos_theta);
-    alert(theta);
-	// Distance in Metres
+    var theta = Math.acos(cos_theta);
+    // Distance in Metres
 	return radius * theta;
 }

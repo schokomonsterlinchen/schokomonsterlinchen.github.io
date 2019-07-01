@@ -10,7 +10,7 @@ var strokesAreAverage = 25;
 
 //Funktionsaufrufe
 fillpositions();
-outputValues();
+regularOutputValues();
 getLocation();
 
 //schreibt die aktuell ausgelesenen Werte auf den Bildschirm
@@ -24,6 +24,12 @@ function outputValues() {
 	document.getElementById("milsec").innerHTML = splitdate[6];
 	document.getElementById("mins").innerHTML = speed_per_500m[0];
 	document.getElementById("secs").innerHTML = speed_per_500m[1];
+}
+
+//beschreibt jede Sekunde das Display neu
+function regularOutputValues() {
+    outputValues();
+    setTimeout(regularOutputValues, 1000);
 }
 
 //füllt Array mit <strokesAreAverage> Strings

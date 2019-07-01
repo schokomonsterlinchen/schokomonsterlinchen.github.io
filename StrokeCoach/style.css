@@ -1,3 +1,14 @@
 h1 {
     font-size: 20vw;
+    text-align: center;
+}
+
+h2 {
+    font-size: 15vw;
+    text-align: center;
+}
+
+h6 {
+    font-size: 4vw;
+    text-align: right;
 }

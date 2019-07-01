@@ -221,8 +221,6 @@ function distanceOnGeoidInMetres(strokes) {
 
 	var theta = Math.acos(cos_theta);
 
-
-    alert(radius * theta);
 	// Distance in Metres
 	return radius * theta;
 }

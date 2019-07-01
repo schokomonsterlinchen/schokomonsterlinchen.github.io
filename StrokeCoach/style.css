@@ -70,7 +70,7 @@ p{
     width: 100%;
     height: 35%;
     /*Boxrand*/
-    border-top: 3px #009f8b solid;    
+    border-bottom: 3px #009f8b solid;    
     /*Schriftart*/
     font-family: Arial white, sans-serif;
     text-decoration: underline;

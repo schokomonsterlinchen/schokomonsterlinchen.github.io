@@ -24,7 +24,7 @@ h1 {
     width: 35%;
     height: 65%;
     /*Boxrand*/
-    border: 12px #009f8b double;
+    border-right: 12px #009f8b double;
     /*Schriftart*/
     font-family: Arial white, sans-serif;
     text-decoration: underline;
@@ -44,7 +44,7 @@ h2 {
     width: 63%;
     height: 65%;
     /*Boxrand*/
-    border: 12px #009f8b double;
+    border-bottom: 12px #009f8b double;
     /*Schriftart*/
     font-family: Arial white, sans-serif;
     text-decoration: underline;

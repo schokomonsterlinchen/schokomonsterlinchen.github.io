@@ -5,7 +5,7 @@ html {
 
 body {
     /*Hintergrundfarbe*/
-    background-color: #009f8b;
+    background-color: black;
     /*niemals breiter als die Seite*/
     max-width: 100%;
     /*Außenabstand -> mittig*/
@@ -22,9 +22,10 @@ h1 {
     background-color: black;
     /*Boxgröße*/
     width: 35%;
-    height: 65%;
+    height: 64%;
     /*Boxrand*/
-    border-right: 12px #009f8b double;
+    border-bottom: 3px #009f8b solid;
+    border-right: 3px #009f8b solid;
     /*Schriftart*/
     font-family: Arial white, sans-serif;
     text-decoration: underline;
@@ -41,10 +42,10 @@ h2 {
     /*Hintergrundfarbe*/
     background-color: black;
     /*Boxgröße*/
-    width: 63%;
-    height: 65%;
+    width: 64%;
+    height: 64%;
     /*Boxrand*/
-    border-bottom: 12px #009f8b double;
+    border-bottom: 3px #009f8b solid;
     /*Schriftart*/
     font-family: Arial white, sans-serif;
     text-decoration: underline;

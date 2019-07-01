@@ -5,7 +5,7 @@ html {
 
 body {
     /*Hintergrundfarbe*/
-    background-color: black;
+    background-color: #009f8b;
     /*niemals breiter als die Seite*/
     max-width: 100%;
     /*Außenabstand -> mittig*/
@@ -17,9 +17,36 @@ h1 {
     font-size: 30pt;
     /*Schriftfarbe*/
     color: white;
+    /*Hintergrundfarbe*/
+    background-color: black;
+    /*Boxgröße*/
+    width: 35%;
+    height: 65%;
     /*Schriftart*/
     font-family: Arial white, sans-serif;
     text-decoration: underline;
     /*Textausrichtung -> mittig*/
-    text-align: center;
+    text-align: left;
+}
+
+h2 {
+    /*Schriftgröße*/
+    font-size: 30pt;
+    /*Schriftfarbe*/
+    color: white;
+    /*Hintergrundfarbe*/
+    background-color: black;
+    /*Boxgröße*/
+    width: 65%;
+    height: 65%;
+    /*Schriftart*/
+    font-family: Arial white, sans-serif;
+    text-decoration: underline;
+    /*Textausrichtung -> mittig*/
+    text-align: right;
+}
+
+p{
+    /*Schriftgröße*/
+    font-size: 20pt;
 }

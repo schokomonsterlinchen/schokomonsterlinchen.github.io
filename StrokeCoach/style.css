@@ -13,8 +13,10 @@ body {
 }
 
 h1 {
+    float: left;
+    margin-right: 0%;
     /*Schriftgröße*/
-    font-size: 30pt;
+    font-size: 75%;
     /*Schriftfarbe*/
     color: white;
     /*Hintergrundfarbe*/
@@ -22,6 +24,8 @@ h1 {
     /*Boxgröße*/
     width: 35%;
     height: 65%;
+    /*Boxrand*/
+    border: 12px #009f8b double;
     /*Schriftart*/
     font-family: Arial white, sans-serif;
     text-decoration: underline;
@@ -30,8 +34,10 @@ h1 {
 }
 
 h2 {
+    float: left;
+    margin-right: 0%;
     /*Schriftgröße*/
-    font-size: 30pt;
+    font-size: 75%;
     /*Schriftfarbe*/
     color: white;
     /*Hintergrundfarbe*/
@@ -39,6 +45,8 @@ h2 {
     /*Boxgröße*/
     width: 65%;
     height: 65%;
+    /*Boxrand*/
+    border: 12px #009f8b double;
     /*Schriftart*/
     font-family: Arial white, sans-serif;
     text-decoration: underline;

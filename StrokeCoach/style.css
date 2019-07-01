@@ -13,8 +13,7 @@ body {
 }
 
 h1 {
-    float: left;
-    margin-right: 0%;
+    display: inline;
     /*Schriftgröße*/
     font-size: 75%;
     /*Schriftfarbe*/
@@ -34,8 +33,7 @@ h1 {
 }
 
 h2 {
-    float: left;
-    margin-right: 0%;
+    display: inline;
     /*Schriftgröße*/
     font-size: 75%;
     /*Schriftfarbe*/

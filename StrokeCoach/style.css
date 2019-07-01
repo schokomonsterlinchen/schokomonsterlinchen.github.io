@@ -13,7 +13,7 @@ body {
 }
 
 h1 {
-    display: inline;
+    float: left;
     /*Schriftgröße*/
     font-size: 75%;
     /*Schriftfarbe*/
@@ -29,11 +29,11 @@ h1 {
     font-family: Arial white, sans-serif;
     text-decoration: underline;
     /*Textausrichtung -> mittig*/
-    text-align: left;
+    text-align: inherit;
 }
 
 h2 {
-    display: inline;
+    float: right;
     /*Schriftgröße*/
     font-size: 75%;
     /*Schriftfarbe*/

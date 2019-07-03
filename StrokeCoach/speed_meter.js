@@ -163,26 +163,26 @@ function speedInMeterPerHour() {
 	let totalMetres = 0;
 
 	//Schleife zur Geschwindigkeitsberechnung von jeweils der aktuellsten und den letzten 24 ermittelten Positionen
-	for (let strokes = strokesAreAverage - 1; strokes > 0; strokes--) {
-		//berechnet den Abstand zwischen der aktuellsten
-		//und der <strokes>ten Position und zähle alle Meter zusammen
-        let distance = distanceOnGeoidInMetres(strokes);
-		totalMetres += distance;
+//	for (let strokes = strokesAreAverage - 1; strokes > 0; strokes--) {
+	for (let strokes = 1; strokes < strokesAreAverage; strokes++) {
+
+		//berechnet den Abstand zwischen der aktuellsten und der <strokes>ten Position
+		let distance = distanceOnGeoidInMetres(strokes);
 		
-		//für den aktuellsten Abstand die Meter auf die Gesamtmeterzahl addieren
-		if (strokes == 1) {
-			totalDistance += distance
-		}
-
-		//wenn eine der Daten keine Nummer ist, gib 0 zurück
-		if (isNaN(positions[0][2]) || isNaN(positions[strokes][2])) {
-			return 0;
-
-		//sonst berechne den zeitlichen Abstand zwischen der Ermittlung
-		//der aktuellsten und der <strokes>ten Positionen in Milliekunden
-		// und zähle alle Millisekunden zusammen
-		} else {
+		//wenn eine der Daten keine Nummer ist, kann sie nicht zum Durchschnitt beitragen
+		if (!(isNaN(positions[0][2]) || isNaN(positions[strokes][2]) || isNaN(distance))) {
+			//zähle alle Meter zusammen
+			totalMetres += distance;
+			
+			//berechne den zeitlichen Abstand zwischen der Ermittlung der aktuellsten und
+			//der <strokes>ten Positionen in Milliekunden und zähle alle Millisekunden zusammen
 			totalMiliSec += positions[0][2] - positions[strokes][2];
+
+			//für den aktuellsten Abstand die Meter auf die Gesamtmeterzahl addieren
+			if (strokes == 1) {
+				totalDistance += distance
+			}	
+
 		}
 	}
 
@@ -196,8 +196,9 @@ function distanceOnGeoidInMetres(strokes) {
 	let lat2 = positions[0][0];
 	let lon2 = positions[0][1];
 
+	//wenn eine der GeoIds keine Nummer ist, kann keine gültige Distanz berechnet werden
 	if (isNaN(lat1) || isNaN(lon1) || isNaN(lat2) || isNaN(lon2)) {
-		return 0;
+		return "NaN";
 	}
 
 	// Convert degrees to radians
@@ -265,6 +266,6 @@ function notNan(number) {
 	if (isNaN(number)) {
 		return "0";
 	} else {
-		return number;
+		return Math.round(number);
 	}
 }

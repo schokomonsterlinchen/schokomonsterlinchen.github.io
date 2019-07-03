@@ -26,7 +26,8 @@ function outputValues() {
 	document.getElementById("mins").innerHTML = notNan(speed_per_500m[0]);
 	document.getElementById("secs").innerHTML = twoNumerals(speed_per_500m[1]);
 	document.getElementById("metre").innerHTML = notNan(totalDistance);
-	alert(speed_per_500m_summe[0] + ":" + speed_per_500m_summe[1] + "  -  " + speed_per_500m_summe[2]);
+	alert(speed_per_500m_summe[0])
+	alert() + ":" + speed_per_500m_summe[1] + "  -  " + speed_per_500m_summe[2]);
 	document.getElementById("minavg").innerHTML = notNan(speed_per_500m_summe[0] / speed_per_500m_summe[2]);
 	document.getElementById("secavg").innerHTML = twoNumerals(speed_per_500m_summe[1] / speed_per_500m_summe[2]);
 }
@@ -159,7 +160,7 @@ function writeTimePer500m() {
 		if (Math.abs(speed_per_500m[0]) < 10) {
 			speed_per_500m_summe[0] += speed_per_500m[0];
 			speed_per_500m_summe[1] += speed_per_500m[1];
-			speed_per_500m_summe++;
+			speed_per_500m_summe[2]++;
 		}
 
 		// Seconds need for 500m

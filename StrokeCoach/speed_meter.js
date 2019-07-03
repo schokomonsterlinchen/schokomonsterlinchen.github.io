@@ -5,7 +5,8 @@ var speed_per_500m = new Array("mins", "secs");
 
 var timezone = 1; //Deutschland = 1 
 var yeartime = 1; //Winterzeit = 0, Sommerzeit = 1
-var strokesAreAverage = 25;
+var strokesAreAverage = 25; //Anzahl Schläge, die gemittelt werden
+var totalDistance = 0;
 
 //Funktionsaufrufe
 fillpositions();
@@ -16,13 +17,14 @@ getLocation();
 function outputValues() {
 	document.getElementById("year").innerHTML = splitdate[0];
 	document.getElementById("month").innerHTML = splitdate[1];
-	document.getElementById("day").innerHTML = splitdate[2];
+	document.getElementById("day").innerHTML = twoNumerals(splitdate[2]);
 	document.getElementById("hour").innerHTML = splitdate[3];
-	document.getElementById("min").innerHTML = splitdate[4];
-	document.getElementById("sec").innerHTML = splitdate[5];
+	document.getElementById("min").innerHTML = twoNumerals(splitdate[4]);
+	document.getElementById("sec").innerHTML = twoNumerals(splitdate[5]);
 //	document.getElementById("milsec").innerHTML = splitdate[6];
-	document.getElementById("mins").innerHTML = speed_per_500m[0];
-	document.getElementById("secs").innerHTML = speed_per_500m[1];
+	document.getElementById("mins").innerHTML = notNan(speed_per_500m[0]);
+	document.getElementById("secs").innerHTML = twoNumerals(speed_per_500m[1]);
+	document.getElementById("metre").innerHTML = notNan(totalDistance);
 }
 
 //füllt Array mit <strokesAreAverage> Strings
@@ -165,13 +167,14 @@ function speedInMeterPerHour() {
 		//berechnet den Abstand zwischen der aktuellsten
 		//und der <strokes>ten Position und zähle alle Meter zusammen
         let distance = distanceOnGeoidInMetres(strokes);
-        totalMetres += distance;//distanceOnGeoidInMetres(strokes);
-/*        alert("meter: " + distance + "  date1: " + positions[0][2]
-            + "  date2: " + positions[strokesAreAverage -1][2]
-            + "  lat1: " + positions[0][0] + "  lon1: " + positions[0][1]
-            + "  lat2: " + positions[1][0] + "  lon2: " + positions[1][1]);
-*/
-		//wenn eine der Daten keine Nummer sind, gib 0 zurück
+		totalMetres += distance;
+		
+		//für den aktuellsten Abstand die Meter auf die Gesamtmeterzahl addieren
+		if (strokes == 1) {
+			totalDistance += distance
+		}
+
+		//wenn eine der Daten keine Nummer ist, gib 0 zurück
 		if (isNaN(positions[0][2]) || isNaN(positions[strokes][2])) {
 			return 0;
 
@@ -226,4 +229,42 @@ function distanceOnGeoidInMetres(strokes) {
     var theta = Math.acos(cos_theta);
     // Distance in Metres
 	return radius * theta;
+}
+
+function twoNumerals(number) {
+	if (isNaN(number)) {
+		return "00";
+	} else if (Math.abs(number) < 10) {
+		if (Math.abs(number) == 0) {
+			return "00";
+		} else if (Math.abs(number) == 1) {
+			return "01";
+		} else if (Math.abs(number) == 2) {
+			return "02";
+		} else if (Math.abs(number) == 3) {
+			return "03";
+		} else if (Math.abs(number) == 4) {
+			return "04";
+		} else if (Math.abs(number) == 5) {
+			return "05";
+		} else if (Math.abs(number) == 6) {
+			return "06";
+		} else if (Math.abs(number) == 7) {
+			return "07";
+		} else if (Math.abs(number) == 8) {
+			return "08";
+		} else if (Math.abs(number) == 9) {
+			return "09";
+		}
+	} else {
+		return number;
+	}
+}
+
+function notNan(number) {
+	if (isNaN(number)) {
+		return "0";
+	} else {
+		return number;
+	}
 }

@@ -20,7 +20,7 @@ function outputValues() {
 	document.getElementById("hour").innerHTML = splitdate[3];
 	document.getElementById("min").innerHTML = splitdate[4];
 	document.getElementById("sec").innerHTML = splitdate[5];
-	document.getElementById("milsec").innerHTML = splitdate[6];
+//	document.getElementById("milsec").innerHTML = splitdate[6];
 	document.getElementById("mins").innerHTML = speed_per_500m[0];
 	document.getElementById("secs").innerHTML = speed_per_500m[1];
 }
@@ -166,11 +166,11 @@ function speedInMeterPerHour() {
 		//und der <strokes>ten Position und zähle alle Meter zusammen
         let distance = distanceOnGeoidInMetres(strokes);
         totalMetres += distance;//distanceOnGeoidInMetres(strokes);
-        alert("meter: " + distance + "  date1: " + positions[0][2]
+/*        alert("meter: " + distance + "  date1: " + positions[0][2]
             + "  date2: " + positions[strokesAreAverage -1][2]
             + "  lat1: " + positions[0][0] + "  lon1: " + positions[0][1]
             + "  lat2: " + positions[1][0] + "  lon2: " + positions[1][1]);
-
+*/
 		//wenn eine der Daten keine Nummer sind, gib 0 zurück
 		if (isNaN(positions[0][2]) || isNaN(positions[strokes][2])) {
 			return 0;

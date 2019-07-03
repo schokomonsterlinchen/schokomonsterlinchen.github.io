@@ -2,6 +2,7 @@
 var positions = [];
 var splitdate = new Array("year", "month", "day", "hour", "min", "sec", "milsec");
 var speed_per_500m = new Array("mins", "secs");
+var speed_per_500m_summe = new Array("minsum", "secsum", "count");
 
 var timezone = 1; //Deutschland = 1 
 var yeartime = 1; //Winterzeit = 0, Sommerzeit = 1
@@ -25,6 +26,8 @@ function outputValues() {
 	document.getElementById("mins").innerHTML = notNan(speed_per_500m[0]);
 	document.getElementById("secs").innerHTML = twoNumerals(speed_per_500m[1]);
 	document.getElementById("metre").innerHTML = notNan(totalDistance);
+	document.getElementById("minavg").innerHTML = notNan(speed_per_500m_summe[0] / speed_per_500m_summe[2]);
+	document.getElementById("secavg").innerHTML = twoNumerals(speed_per_500m_summe[1] / speed_per_500m_summe[2]);
 }
 
 //füllt Array mit <strokesAreAverage> Strings
@@ -151,6 +154,13 @@ function writeTimePer500m() {
 		speed_per_500m[0] = (seconds_per_500m - speed_per_500m[1]) / 60;
 		speed_per_500m[1] = Math.round(speed_per_500m[1]);
 
+		//wenn die Geschwindigkeit realistisch ist (< 10:00) zur Durchschnittsgeschwindigkeit dazu rechnen
+		if (Math.abs(speed_per_500m[0]) < 10) {
+			speed_per_500m_summe[0] += speed_per_500m[0];
+			speed_per_500m_summe[1] += speed_per_500m[1];
+			speed_per_500m_summe++;
+		}
+
 		// Seconds need for 500m
 		return seconds_per_500m;
 	}
@@ -163,7 +173,6 @@ function speedInMeterPerHour() {
 	let totalMetres = 0;
 
 	//Schleife zur Geschwindigkeitsberechnung von jeweils der aktuellsten und den letzten 24 ermittelten Positionen
-//	for (let strokes = strokesAreAverage - 1; strokes > 0; strokes--) {
 	for (let strokes = 1; strokes < strokesAreAverage; strokes++) {
 
 		//berechnet den Abstand zwischen der aktuellsten und der <strokes>ten Position

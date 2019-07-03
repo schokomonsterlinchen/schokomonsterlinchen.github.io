@@ -2,7 +2,7 @@
 var positions = [];
 var splitdate = new Array("year", "month", "day", "hour", "min", "sec", "milsec");
 var speed_per_500m = new Array("mins", "secs");
-var speed_per_500m_summe = new Array("minsum", "secsum", "count");
+var speed_per_500m_summe = new Array(0, 0, );
 
 var timezone = 1; //Deutschland = 1 
 var yeartime = 1; //Winterzeit = 0, Sommerzeit = 1

@@ -52,22 +52,25 @@
     <script>        
         /* Function to open fullscreen mode */
         function openFullscreen(elem) {
-            alert("bin drin");
             if (elem.requestFullscreen) {
-                alert("fullscreen");
                 elem.requestFullscreen();
             } else if (elem.mozRequestFullScreen) { /* Firefox */
-                alert("Firrefox");
                 elem.mozRequestFullScreen();
             } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-                alert("Chrome, Safari, Opera");
                 elem.webkitRequestFullscreen();
             } else if (elem.msRequestFullscreen) { /* IE/Edge */
-                alert("IE Edge");
                 elem.msRequestFullscreen();
             }
-            alert("nothing of all");
         }
+
+        const requestor = document.querySelector('div');
+
+        requestor.addEventListener('fullscreenerror', (event) => {
+            console.error('an error occurred changing into fullscreen');
+            console.log(event);
+        });
+
+        requestor.requestFullscreen();
         openFullscreen(document.documentElement);
     </script>
     <noscript>

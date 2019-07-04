@@ -23,7 +23,11 @@ function outputValues() {
 	document.getElementById("min").innerHTML = twoNumerals(splitdate[4]);
 	document.getElementById("sec").innerHTML = twoNumerals(splitdate[5]);
 //	document.getElementById("milsec").innerHTML = splitdate[6];
-	document.getElementById("mins").innerHTML = notNan(speed_per_500m[0] % 10);
+	if (speed_per_500m[0] > 10) {
+		speed_per_500m[0] = 0;
+		speed_per_500m[1] = 0;
+	}
+	document.getElementById("mins").innerHTML = notNan(speed_per_500m[0]);
 	document.getElementById("secs").innerHTML = twoNumerals(speed_per_500m[1]);
 	document.getElementById("metre").innerHTML = notNan(totalDistance);
 	let totalAverageSeconds = speed_per_500m_summe[0] / speed_per_500m_summe[1];

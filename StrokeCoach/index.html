@@ -23,7 +23,8 @@
     <script src="main.js"></script>
     <style>
         div.row {
-            grid-gap: 7%;
+            grid-column-gap: 6%;
+            grid-row-gap: 3%
         }
 
         div.col-sm-3 {
@@ -63,13 +64,13 @@
 
 <body>
     <div class="row">
-        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-1">
             <label for="grid-checkbox">Fullscreen</label>
             <input type="checkbox" id="fullscreen" name="grid-checkbox-1">
         </div>
-        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
-        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
-        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-3"></div>
+        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-3"></div>
+        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-2">
             <p class="time">
                 <span id="hour"></span>:<span id="min"></span>:<span id="sec"></span></span>  -  
                 <span id="day"></span>. <span id="month"></span> <span id="year"></span><br />

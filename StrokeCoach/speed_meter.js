@@ -2,7 +2,7 @@
 var positions = [];
 var splitdate = new Array("year", "month", "day", "hour", "min", "sec", "milsec");
 var speed_per_500m = new Array("mins", "secs");
-var speed_per_500m_summe = new Array(0, 0, 0);
+var speed_per_500m_summe = new Array(0, 0);
 
 var timezone = 1; //Deutschland = 1 
 var yeartime = 1; //Winterzeit = 0, Sommerzeit = 1
@@ -26,8 +26,10 @@ function outputValues() {
 	document.getElementById("mins").innerHTML = notNan(speed_per_500m[0]);
 	document.getElementById("secs").innerHTML = twoNumerals(speed_per_500m[1]);
 	document.getElementById("metre").innerHTML = notNan(totalDistance);
-	document.getElementById("minavg").innerHTML = notNan(speed_per_500m_summe[0] / speed_per_500m_summe[2]);
-	document.getElementById("secavg").innerHTML = twoNumerals(Math.round(speed_per_500m_summe[1] / speed_per_500m_summe[2]));
+	let totalAverageSeconds = speed_per_500m_summe[0] / speed_per_500m_summe[1];
+	let averageSeconds = totalAverageSeconds % 60;
+	document.getElementById("minavg").innerHTML = notNan(totalAverageSeconds - averageSeconds);
+	document.getElementById("secavg").innerHTML = twoNumerals(Math.round(averageSeconds));
 }
 
 //füllt Array mit <strokesAreAverage> Strings
@@ -156,9 +158,8 @@ function writeTimePer500m() {
 
 		//wenn die Geschwindigkeit realistisch ist (< 10:00) zur Durchschnittsgeschwindigkeit dazu rechnen
 		if (Math.abs(speed_per_500m[0]) < 10) {
-			speed_per_500m_summe[0] += speed_per_500m[0];
-			speed_per_500m_summe[1] += speed_per_500m[1];
-			speed_per_500m_summe[2]++;
+			speed_per_500m_summe[0] += (speed_per_500m[0] * 60) + speed_per_500m[1];
+			speed_per_500m_summe[1]++;
 		}
 
 		// Seconds need for 500m

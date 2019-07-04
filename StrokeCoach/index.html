@@ -45,10 +45,29 @@
             <h6>metre</h6>
         </div>
         <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5">
-                <h2><span id="minavg"></span>::<span id="secavg"></span></h2>
+                <h2><span id="minavg"></span>:<span id="secavg"></span></h2>
                 <h6>/500m avg</h6>    
         </div>
     </div>
+    <script>
+        /* Get the element you want displayed in fullscreen */ 
+        //var elem = document.documentElement;
+        
+        /* Function to open fullscreen mode */
+        function openFullscreen() {
+          if (elem.requestFullscreen) {
+          elem.requestFullscreen();
+          } else if (elem.mozRequestFullScreen) { /* Firefox */
+          elem.mozRequestFullScreen();
+          } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+          elem.webkitRequestFullscreen();
+          } else if (elem.msRequestFullscreen) { /* IE/Edge */
+          elem.msRequestFullscreen();
+          }
+        }
+
+        enterFullscreen(document.documentElement);
+    </script>
     <noscript>
         Sie haben JavaScript deaktiviert.
     </noscript>

@@ -21,22 +21,50 @@
 
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
     <script src="main.js"></script>
+    <style>
+        div.row {
+            grid-gap: 1%;
+        }
+
+        
+        p.time {
+            background-color: rgba(0, 255, 255, 0.400);
+            border-radius: 60%;
+        }
+
+        div.col-sm-5 {
+            background-color: rgba(0, 255, 255, 0.300);;
+            border-radius: 25%;
+            border-style: groove;
+            border-color: rgb(0, 117, 117);
+            box-shadow: 10px 10px 5px grey;
+        }
+
+        div.col-sm-6 {
+            background-color: rgba(0, 255, 255, 0.300);;
+            border-radius: 25%;
+            border-style: groove;
+            border-color: rgb(0, 117, 117);
+            box-shadow: 10px 10px 5px grey;
+        }
+    </style>
 </head>
 
 
 <body>
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <p>
+        <div class="col-sm-9 col-md-9 col-lg-9 col-xl-9"></div>
+        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+            <p class="time">
                 <span id="hour"></span>:<span id="min"></span>:<span id="sec"></span></span>  -  
                 <span id="day"></span>. <span id="month"></span> <span id="year"></span><br />
             </p>        
         </div>
         <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5">
             <h1><span id="stroke"></span></h1>
-            <h6>strokes/minute</h6>
+            <h6>strks/min</h6>
         </div>
-        <div class="col-sm-7 col-md-7 col-lg-7 col-xl-7">
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
             <h1><span id="mins"></span>:<span id="secs"></span></h1>
             <h6>/500m</h6>
         </div>
@@ -44,9 +72,9 @@
             <h2><span id="metre"></span></h2>
             <h6>metre</h6>
         </div>
-        <div class="col-sm-7 col-md-7 col-lg-7 col-xl-7">
-                <h2><span id="minavg"></span>:<span id="secavg"></span></h2>
-                <h6>/500m avg</h6>    
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <h2><span id="minavg"></span>:<span id="secavg"></span></h2>
+            <h6>/500m avg</h6>    
         </div>
     </div>
     <script>        

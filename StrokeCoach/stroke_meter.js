@@ -35,7 +35,7 @@ create_array();
 
 //schreibt die aktuell ausgelesenen Werte auf den Bildschirm
 function write_stroke() {
-	document.getElementById("stroke").innerHTML = stroke;
+	document.getElementById("stroke").innerHTML = notNaN(stroke);
 }
 
 
@@ -182,4 +182,12 @@ function set_stroke() {
         let time_per_stroke = total_stroke / 5;
         stroke = Math.floor(60000 / time_per_stroke);
     }
+}
+
+function notNan(number) {
+	if (isNaN(number)) {
+		return "0";
+	} else {
+		return Math.round(number);
+	}
 }

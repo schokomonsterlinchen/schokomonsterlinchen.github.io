@@ -26,9 +26,8 @@ function outputValues() {
 	document.getElementById("mins").innerHTML = notNan(speed_per_500m[0]);
 	document.getElementById("secs").innerHTML = twoNumerals(speed_per_500m[1]);
 	document.getElementById("metre").innerHTML = notNan(totalDistance);
-//	alert(speed_per_500m_summe[0] + ":" + speed_per_500m_summe[1] + "  -  " + speed_per_500m_summe[2]);
 	document.getElementById("minavg").innerHTML = notNan(speed_per_500m_summe[0] / speed_per_500m_summe[2]);
-	document.getElementById("secavg").innerHTML = twoNumerals(speed_per_500m_summe[1] / speed_per_500m_summe[2]);
+	document.getElementById("secavg").innerHTML = twoNumerals(Math.round(speed_per_500m_summe[1] / speed_per_500m_summe[2]));
 }
 
 //füllt Array mit <strokesAreAverage> Strings

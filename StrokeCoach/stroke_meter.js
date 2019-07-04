@@ -35,7 +35,7 @@ create_array();
 
 //schreibt die aktuell ausgelesenen Werte auf den Bildschirm
 function write_stroke() {
-	document.getElementById("stroke").innerHTML = notNaN(stroke);
+	document.getElementById("stroke").innerHTML = notNan(stroke);
 }
 
 

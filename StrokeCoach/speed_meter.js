@@ -2,7 +2,7 @@
 var positions = [];
 var splitdate = new Array("year", "month", "day", "hour", "min", "sec", "milsec");
 var speed_per_500m = new Array("mins", "secs");
-var speed_per_500m_summe = new Array(0, 0, );
+var speed_per_500m_summe = new Array(0, 0, 0);
 
 var timezone = 1; //Deutschland = 1 
 var yeartime = 1; //Winterzeit = 0, Sommerzeit = 1
@@ -26,7 +26,7 @@ function outputValues() {
 	document.getElementById("mins").innerHTML = notNan(speed_per_500m[0]);
 	document.getElementById("secs").innerHTML = twoNumerals(speed_per_500m[1]);
 	document.getElementById("metre").innerHTML = notNan(totalDistance);
-	alert(speed_per_500m_summe[0] + ":" + speed_per_500m_summe[1] + "  -  " + speed_per_500m_summe[2]);
+//	alert(speed_per_500m_summe[0] + ":" + speed_per_500m_summe[1] + "  -  " + speed_per_500m_summe[2]);
 	document.getElementById("minavg").innerHTML = notNan(speed_per_500m_summe[0] / speed_per_500m_summe[2]);
 	document.getElementById("secavg").innerHTML = twoNumerals(speed_per_500m_summe[1] / speed_per_500m_summe[2]);
 }

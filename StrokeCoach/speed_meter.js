@@ -195,7 +195,7 @@ function speedInMeterPerHour() {
 		}
 	}
 
-	return Math.floor((totalMetres * 1200000) / totalMiliSec);
+	return Math.floor((totalMetres * 3600000) / totalMiliSec);
 }
 
 //berechnet die Distanz in Metern zwischen der aktuellen Position und der Position auf Platz <strokes>

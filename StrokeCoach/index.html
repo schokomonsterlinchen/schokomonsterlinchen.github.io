@@ -26,7 +26,14 @@
             grid-gap: 7%;
         }
 
-        
+        div.col-sm-1 {
+            background-color: rgba(184, 184, 184, 0.250);
+            border-radius: 15%;
+            border-style: groove;
+            border-color: rgb(119, 116, 116);
+            box-shadow: 10px 10px 5px grey;
+        }
+
         p.time {
             background-color: rgba(0, 255, 255, 0.250);
             border-radius: 60%;
@@ -56,8 +63,13 @@
 
 <body>
     <div class="row">
-        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8"></div>
-        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
+        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1">
+            <label for="grid-checkbox">Fullscreen</label>
+            <input type="checkbox" id="fullscreen" name="grid-checkbox-1">
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
+        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
+        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
             <p class="time">
                 <span id="hour"></span>:<span id="min"></span>:<span id="sec"></span></span>  -  
                 <span id="day"></span>. <span id="month"></span> <span id="year"></span><br />
@@ -80,33 +92,11 @@
             <h6>/500m avg</h6>    
         </div>
     </div>
-    <script>        
-        /* Function to open fullscreen mode */
-        function openFullscreen(elem) {
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.mozRequestFullScreen) { /* Firefox */
-                elem.mozRequestFullScreen();
-            } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-                elem.webkitRequestFullscreen();
-            } else if (elem.msRequestFullscreen) { /* IE/Edge */
-                elem.msRequestFullscreen();
-            }
-        }
 
-        const requestor = document.querySelector('div');
-
-        requestor.addEventListener('fullscreenerror', (event) => {
-            console.error('an error occurred changing into fullscreen');
-            console.log(event);
-        });
-
-        requestor.requestFullscreen();
-        openFullscreen(document.documentElement);
-    </script>
     <noscript>
         Sie haben JavaScript deaktiviert.
     </noscript>
+    <script src="fullscreen.js"></script>
     <script src="speed_meter.js"></script>
     <script src="stroke_meter.js"></script>
     </form>

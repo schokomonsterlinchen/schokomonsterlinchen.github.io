@@ -28,7 +28,7 @@ function outputValues() {
 	document.getElementById("metre").innerHTML = notNan(totalDistance);
 	let totalAverageSeconds = speed_per_500m_summe[0] / speed_per_500m_summe[1];
 	let averageSeconds = totalAverageSeconds % 60;
-	document.getElementById("minavg").innerHTML = notNan((totalAverageSeconds - averageSeconds) / 60);
+	document.getElementById("minavg").innerHTML = notNan((totalAverageSeconds - averageSeconds));
 	document.getElementById("secavg").innerHTML = twoNumerals(Math.round(averageSeconds));
 }
 

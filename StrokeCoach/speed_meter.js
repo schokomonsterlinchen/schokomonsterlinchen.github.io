@@ -186,10 +186,11 @@ function speedInMeterPerHour() {
 		totalDistance += distance;	
 	}
 
-	for (let x = strokesAreAverage - 2; x > 0; x--) {
+	for (let x = strokesAreAverage - 1; x > 0; x--) {
 		//berechnet den Abstand zwischen der aktuellsten und der ältesten gespeicherten Position
 		//denn darüber gemittelt ist die Fehlerwahrscheinlichkeit des GPS am unauffälligsten
 		distance = distanceOnGeoidInMetres(x);
+		alert(distance);
 		//wenn eine der Daten keine Nummer ist, kann sie nicht zum Durchschnitt beitragen
 		if (!(isNaN(positions[0][2]) || isNaN(positions[x][2]) || isNaN(distance))) {
 			//zähle alle Meter zusammen

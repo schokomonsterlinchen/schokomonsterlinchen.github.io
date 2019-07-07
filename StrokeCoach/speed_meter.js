@@ -6,7 +6,7 @@ var speed_per_500m_summe = new Array(0, 0);
 
 var timezone = 1; //Deutschland = 1 
 var yeartime = 1; //Winterzeit = 0, Sommerzeit = 1
-var strokesAreAverage = 25; //Anzahl Schläge, die gemittelt werden
+var strokesAreAverage = 30;//25; //Anzahl Schläge, die gemittelt werden
 var totalDistance = 0;
 
 //Funktionsaufrufe
@@ -177,6 +177,33 @@ function speedInMeterPerHour() {
 	let totalMiliSec = 0;
 	let totalMetres = 0;
 
+	//berechnet den Abstand zwischen der aktuellsten und der zweitaktuellsten Position
+	//denn dieser Abstand ist in den gesamtMetern noch nicht mit einberechnet
+	let distance = distanceOnGeoidInMetres(1);
+	//mit Abstand NaN kann der Compiler nicht rechnen
+	if (!isNaN(distance)) {
+		//für den aktuellsten Abstand die Meter auf die Gesamtmeterzahl addieren
+		if (strokes == 1) {
+			totalDistance += distance;
+		}	
+	}
+
+	//berechnet den Abstand zwischen der aktuellsten und der ältesten gespeicherten Position
+	//denn darüber gemittelt ist die Fehlerwahrscheinlichkeit des GPS am unauffälligsten
+	distance = distanceOnGeoidInMetres(strokesAreAverage - 1);
+	//wenn eine der Daten keine Nummer ist, kann sie nicht zum Durchschnitt beitragen
+	if (!(isNaN(positions[0][2]) || isNaN(positions[strokes][2]) || isNaN(distance))) {
+		//zähle alle Meter zusammen
+		totalMetres += distance;
+		
+		//berechne den zeitlichen Abstand zwischen der Ermittlung der aktuellsten und
+		//der ältesten gespeicherten Positionen in Milliekunden und zähle alle Millisekunden zusammen
+		totalMiliSec += positions[0][2] - positions[strokes][2];
+	}
+
+/*	let totalMiliSec = 0;
+	let totalMetres = 0;
+
 	//Schleife zur Geschwindigkeitsberechnung von jeweils der aktuellsten und den letzten 24 ermittelten Positionen
 	for (let strokes = 1; strokes < strokesAreAverage; strokes++) {
 
@@ -194,13 +221,14 @@ function speedInMeterPerHour() {
 
 			//für den aktuellsten Abstand die Meter auf die Gesamtmeterzahl addieren
 			if (strokes == 1) {
-				totalDistance += distance
+				totalDistance += distance;
 			}	
 
 		}
 	}
-
+*/
 	return Math.floor((totalMetres * 3600000) / totalMiliSec);
+
 }
 
 //berechnet die Distanz in Metern zwischen der aktuellen Position und der Position auf Platz <strokes>

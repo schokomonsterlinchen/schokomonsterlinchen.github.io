@@ -183,23 +183,26 @@ function speedInMeterPerHour() {
 	//mit Abstand NaN kann der Compiler nicht rechnen
 	if (!isNaN(distance)) {
 		//für den aktuellsten Abstand die Meter auf die Gesamtmeterzahl addieren
-		if (strokes == 1) {
-			totalDistance += distance;
-		}	
+		totalDistance += distance;	
 	}
 
-	//berechnet den Abstand zwischen der aktuellsten und der ältesten gespeicherten Position
-	//denn darüber gemittelt ist die Fehlerwahrscheinlichkeit des GPS am unauffälligsten
-	distance = distanceOnGeoidInMetres(strokesAreAverage - 1);
-	//wenn eine der Daten keine Nummer ist, kann sie nicht zum Durchschnitt beitragen
-	if (!(isNaN(positions[0][2]) || isNaN(positions[strokesAreAverage][2]) || isNaN(distance))) {
-		//zähle alle Meter zusammen
-		totalMetres += distance;
+	for (let x = strokesAreAverage - 2; x > 0; x--) {
+		//berechnet den Abstand zwischen der aktuellsten und der ältesten gespeicherten Position
+		//denn darüber gemittelt ist die Fehlerwahrscheinlichkeit des GPS am unauffälligsten
+		distance = distanceOnGeoidInMetres(x);
+		//wenn eine der Daten keine Nummer ist, kann sie nicht zum Durchschnitt beitragen
+		if (!(isNaN(positions[0][2]) || isNaN(positions[x][2]) || isNaN(distance))) {
+			//zähle alle Meter zusammen
+			totalMetres += distance;
 		
-		//berechne den zeitlichen Abstand zwischen der Ermittlung der aktuellsten und
-		//der ältesten gespeicherten Positionen in Milliekunden und zähle alle Millisekunden zusammen
-		totalMiliSec += positions[0][2] - positions[strokes][2];
+			//berechne den zeitlichen Abstand zwischen der Ermittlung der aktuellsten und
+			//der ältesten gespeicherten Positionen in Milliekunden und zähle alle Millisekunden zusammen
+			totalMiliSec += positions[0][2] - positions[x][2];
+
+			x = 0;
+		}
 	}
+	
 
 /*	let totalMiliSec = 0;
 	let totalMetres = 0;

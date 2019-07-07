@@ -26,6 +26,9 @@ function outputValues() {
 	if (speed_per_500m[0] > 10) {
 		speed_per_500m[0] = 0;
 		speed_per_500m[1] = 0;
+	} else if (speed_per_500m[1] == 60) {
+		speed_per_500m[0]++;
+		speed_per_500m[1] = 0;
 	}
 	document.getElementById("mins").innerHTML = notNan(speed_per_500m[0]);
 	document.getElementById("secs").innerHTML = twoNumerals(speed_per_500m[1]);

@@ -192,7 +192,7 @@ function speedInMeterPerHour() {
 	//denn darüber gemittelt ist die Fehlerwahrscheinlichkeit des GPS am unauffälligsten
 	distance = distanceOnGeoidInMetres(strokesAreAverage - 1);
 	//wenn eine der Daten keine Nummer ist, kann sie nicht zum Durchschnitt beitragen
-	if (!(isNaN(positions[0][2]) || isNaN(positions[strokes][2]) || isNaN(distance))) {
+	if (!(isNaN(positions[0][2]) || isNaN(positions[strokesAreAverage][2]) || isNaN(distance))) {
 		//zähle alle Meter zusammen
 		totalMetres += distance;
 		
